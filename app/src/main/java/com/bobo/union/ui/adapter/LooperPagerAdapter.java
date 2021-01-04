@@ -31,11 +31,19 @@ public class LooperPagerAdapter extends PagerAdapter {
         container.removeView((View) object);
     }
 
+    public int getDataSize() {
+        return mData == null ? 0 : mData.size();
+    }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
+
+        // 设置无限循环轮播图后处理数组越界的问题 取模运算处理
+        int realPosition = position % mData.size();
+
         // 获取轮播图图片url
-        HomePagerContent.DataBean dataBean = mData.get(position);
+        HomePagerContent.DataBean dataBean = mData.get(realPosition);
         String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url());
         // java代码写布局没有用XML
         ImageView iv = new ImageView(container.getContext());

@@ -2,11 +2,17 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item>
-        <bitmap
-            android:tileMode="disabled"
-            android:scaleType="centerCrop"
-            android:filter="true"
-            android:src="@drawable/launch_bg" />
+
+        <shape android:shape="rectangle" >
+            <solid android:color="#F5A623"/>
+
+            <size android:width="1080dp" android:height="2210dp"/>
+        </shape>
+        <!-- <bitmap -->
+            <!-- android:tileMode="disabled" -->
+            <!-- android:scaleType="centerCrop" -->
+            <!-- android:filter="true" -->
+            <!-- android:src="@drawable/launch_bg" /> -->
     </item>
 
     <item

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- #F5A623 -->
-    <color name="colorPrimary">#fe9000</color>
-    <color name="colorPrimaryDark">#fe9000</color>
-    <color name="colorAccent">#fe9000</color>
+    <!-- #F5A623  #fe9000-->
+    <color name="colorPrimary">#F5A623</color>
+    <color name="colorPrimaryDark">#F5A623</color>
+    <color name="colorAccent">#F5A623</color>
     <color name="colorGrey">#7B7B7B</color>
 
     <color name="colorTabSelected">#ffffff</color>

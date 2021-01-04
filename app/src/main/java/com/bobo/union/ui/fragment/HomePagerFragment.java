@@ -1,7 +1,6 @@
 package com.bobo.union.ui.fragment;
 
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -86,6 +85,45 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @Override
     protected int getRootViewResId() {
         return R.layout.fragment_home_pager;
+    }
+
+    @Override
+    protected void initListener() {
+        looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                int tragetPosition = position % mLooperPagerAdapter.getDataSize();
+
+                // 切换轮播图的指示器
+                updateLooperIndictor(tragetPosition);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    /**
+     * 切换轮播图的指示器
+     * @param tragetPosition
+     */
+    private void updateLooperIndictor(int tragetPosition) {
+        for (int i = 0; i < looperPointContainer.getChildCount(); i++) {
+           View point = looperPointContainer.getChildAt(i);
+            if (i == tragetPosition) {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
+            } else {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
+            }
+        }
     }
 
     @Override
@@ -202,14 +240,20 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public void onLooperListLoaded(List<HomePagerContent.DataBean> contents) {
         LogUtils.d(this, "looper size --> " + contents.size());
         mLooperPagerAdapter.setData(contents);
+
+        // 轮播图第一次显示设置到中间点 这样可以往左划动
+        int dx = (Integer.MAX_VALUE / 2) % contents.size();
+        int targetConterPosition = (Integer.MAX_VALUE / 2) - dx;
+        looperPager.setCurrentItem(targetConterPosition);
+        // LogUtils.d(this, "url 0--> " + contents.get(0).getPict_url());
+
         // 当数据来的时候根据数据动态添加指示器上的点
         // 先移除老的数据（点）
         looperPointContainer.removeAllViews();
-        GradientDrawable selectDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.
-                shape_indicator_point);
-        GradientDrawable normalDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.
-                shape_indicator_point);
-        normalDrawable.setColor(getContext().getColor(R.color.white));
+        // GradientDrawable selectDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.
+        //         shape_indicator_point_selected);
+        // GradientDrawable normalDrawable = (GradientDrawable) getContext().getDrawable(R.drawable.
+        //         shape_indicator_point_normal);
 
         // 再添加新的点
         for (int i = 0; i < contents.size(); i++) {
@@ -221,9 +265,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             layoutParams.rightMargin = SizeUtils.dip2px(getContext(), 5);
             point.setLayoutParams(layoutParams);
             if (i == 0) {
-                point.setBackground(selectDrawable);
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
             } else {
-                point.setBackground(normalDrawable);
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
             }
 
             // 添加点

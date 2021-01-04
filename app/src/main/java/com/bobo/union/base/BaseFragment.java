@@ -85,6 +85,9 @@ public abstract class BaseFragment extends Fragment {
         // 初始化各个ui控件
         initView(rootView);
 
+        // 实例化监听事件
+        initListener();
+
         // 实例化prestener
         initPresenter();
 
@@ -92,6 +95,13 @@ public abstract class BaseFragment extends Fragment {
         loadData();
 
         return rootView;
+    }
+
+    /**
+     * 实例化监听事件,子类根据自己的业务需要决定是否重新该方法
+     */
+    protected void initListener() {
+
     }
 
     /**
