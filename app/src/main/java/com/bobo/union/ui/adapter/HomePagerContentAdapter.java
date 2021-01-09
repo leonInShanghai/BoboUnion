@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  */
 public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
 
-    private List<HomePagerContent.DataBean> data = new ArrayList<>();
+    private List<HomePagerContent.DataBean> mData = new ArrayList<>();
 
     @NonNull
     @Override
@@ -42,25 +42,37 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        HomePagerContent.DataBean dataBean = data.get(position);
+        HomePagerContent.DataBean dataBean = mData.get(position);
         // 设置（绑定）数据
         holder.setData(dataBean);
     }
 
     @Override
     public int getItemCount() {
-        return data == null ? 0 : data.size();
+        return mData == null ? 0 : mData.size();
     }
 
     public void setData(List<HomePagerContent.DataBean> contents) {
         // 先清除原来的数据
-        if (data.size() > 0) {
-            data.clear();
+        if (mData.size() > 0) {
+            mData.clear();
         }
         // 再添加新的数据
-        data.addAll(contents);
+        mData.addAll(contents);
         // 更新视图
         notifyDataSetChanged();
+    }
+
+    /**
+     * 上拉加载更多成功后添加到底部数据
+     * @param contents
+     */
+    public void addData(List<HomePagerContent.DataBean> contents) {
+        // 添加数据之前拿到原来的size为接下来的局部刷新做准备
+        int oldSize = mData.size();
+        mData.addAll(contents);
+        // 更新ui(局部更新)
+        notifyItemRangeChanged(oldSize, contents.size());
     }
 
     class InnerHolder extends RecyclerView.ViewHolder {

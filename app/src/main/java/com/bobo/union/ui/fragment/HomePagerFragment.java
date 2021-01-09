@@ -4,8 +4,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +25,12 @@ import com.bobo.union.ui.adapter.LooperPagerAdapter;
 import com.bobo.union.utils.Constants;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.SizeUtils;
+import com.bobo.union.utils.ToastUtil;
 import com.bobo.union.view.ICategoryPagerCallback;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
+import com.vondear.rxui.view.wavesidebar.adapter.OnLoadMoreListener;
 
 import java.util.List;
 
@@ -45,7 +52,7 @@ import butterknife.BindView;
 public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback {
 
     // 这个页面的presenter
-    private CategoryPagePresenterImpl mCategoryPagePresenter;
+    private CategoryPagePresenterImpl mPagePresenter;
 
     // 用于区分fragment的请求id
     private int mMaterialId;
@@ -65,6 +72,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     // 轮播图上的指示器
     @BindView(R.id.loop_point_container)
     public LinearLayout looperPointContainer;
+
+    @BindView(R.id.home_pager_refresh)
+    public TwinklingRefreshLayout twinklingRefreshLayout;
 
     // 展示内容的循环视图的适配器
     private HomePagerContentAdapter mContentAdapter;
@@ -97,7 +107,10 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
             @Override
             public void onPageSelected(int position) {
-
+                // 0不可以做除数，避免异常
+                if (mLooperPagerAdapter.getDataSize() == 0) {
+                    return;
+                }
                 int tragetPosition = position % mLooperPagerAdapter.getDataSize();
 
                 // 切换轮播图的指示器
@@ -107,6 +120,19 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        // 下拉加载更多事件监听
+        twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                super.onLoadMore(refreshLayout);
+                LogUtils.d(HomePagerFragment.this, "触发了Load More...");
+                // 去加载更多
+                if (mPagePresenter != null) {
+                    mPagePresenter.loaderMore(mMaterialId);
+                }
             }
         });
     }
@@ -153,15 +179,23 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
         // 设置轮播图的适配器
         looperPager.setAdapter(mLooperPagerAdapter);
+
+        // 设置刷新相关属性
+        twinklingRefreshLayout.setEnableRefresh(false); // 不要下拉刷新
+        twinklingRefreshLayout.setEnableLoadmore(true); // 要上拉加载更多
+        // 设置和app主题一样颜色的BallPulseView（上拉加载更多自定义view）
+        BallPulseView mBallPulseView = new BallPulseView(getContext());
+        mBallPulseView.setAnimatingColor(getResources().getColor(R.color.colorPrimary));
+        twinklingRefreshLayout.setBottomView(mBallPulseView);
     }
 
     @Override
     protected void initPresenter() {
         // 实例化presenter
-        mCategoryPagePresenter = CategoryPagePresenterImpl.getInstance();
+        mPagePresenter = CategoryPagePresenterImpl.getInstance();
 
         // 注册回调接口
-        mCategoryPagePresenter.registerViewCallback(this);
+        mPagePresenter.registerViewCallback(this);
     }
 
     @Override
@@ -177,8 +211,8 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         LogUtils.d(this, "materialId --> " + mMaterialId);
 
         // 加载数据
-        if (mCategoryPagePresenter != null) {
-            mCategoryPagePresenter.getContentByCategoryId(mMaterialId);
+        if (mPagePresenter != null) {
+            mPagePresenter.getContentByCategoryId(mMaterialId);
         }
 
         if (currentCategoryTitleTv != null) {
@@ -221,19 +255,44 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         setUpState(State.EMPTY);
     }
 
+    /**
+     * 上拉加载更多失败
+     */
     @Override
     public void onLoadMoreError() {
-
+        ToastUtil.showToast("网络异常，请稍后重试");
+        if (twinklingRefreshLayout != null) {
+            // (上拉加载更多控件)结束上拉加载更多
+            twinklingRefreshLayout.finishLoadmore();
+        }
     }
 
+    /**
+     * 上拉加载更多成功但是数据为空
+     */
     @Override
     public void onLoadMoreEmpty() {
-
+        ToastUtil.showToast("没有更多的商品");
+        if (twinklingRefreshLayout != null) {
+            // (上拉加载更多控件)结束上拉加载更多
+            twinklingRefreshLayout.finishLoadmore();
+        }
     }
 
+    /**
+     * 上拉加载更多成功并且有数据
+     * @param contents
+     */
     @Override
     public void onLoaderMoreLoaded(List<HomePagerContent.DataBean> contents) {
-
+        // 添加到适配器数据的底部
+        mContentAdapter.addData(contents);
+        if (twinklingRefreshLayout != null) {
+            // (上拉加载更多控件)结束上拉加载更多
+            twinklingRefreshLayout.finishLoadmore();
+        }
+        // Toast.makeText(getContext(), "加载了" + contents.size() + "条数据",
+        //         Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -280,8 +339,8 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
      */
     @Override
     protected void release() {
-        if (mCategoryPagePresenter != null) {
-            mCategoryPagePresenter.unregisterViewCallback(this);
+        if (mPagePresenter != null) {
+            mPagePresenter.unregisterViewCallback(this);
         }
     }
 }

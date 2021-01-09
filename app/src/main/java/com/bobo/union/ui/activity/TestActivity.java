@@ -5,11 +5,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bobo.union.R;
 import com.bobo.union.utils.LogUtils;
+import com.bobo.union.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,15 @@ public class TestActivity extends AppCompatActivity {
 
 
         initListener();
+    }
+
+    /**
+     * 演示Toast重叠的按钮点击事件
+     * @param view
+     */
+    public void showToast(View view) {
+        // Toast.makeText(TestActivity.this, "测试...", Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast("测试...");
     }
 
     // RadioGroup点击事件的处理
@@ -77,5 +88,4 @@ public class TestActivity extends AppCompatActivity {
         });
 
     }
-
 }

@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.TestActivity">
 
+    <!-- 测试用的button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showToast"
+        android:text="测试Toast"
+        android:textAllCaps="false"/>
+
     <RadioGroup
         android:id="@+id/test_navigation_bar"
         android:layout_alignParentBottom="true"

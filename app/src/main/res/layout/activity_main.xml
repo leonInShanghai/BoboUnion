@@ -8,12 +8,15 @@
     android:background="@android:color/white"
     tools:context=".ui.activity.MainActivity">
 
+    <!-- android:layout_marginBottom="49dp" -->
     <FrameLayout
         android:id="@+id/main_page_connecter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_navation_bar"/>
 
-    <!-- 底部的tabbar -->
+    <!-- 底部的tabbar
+         android:layout_height="49dp" -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_navation_bar"
         android:layout_width="match_parent"
