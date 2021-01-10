@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout android:id="@+id/home_pager_refresh"
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+    android:id="@+id/home_pager_refresh"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.core.widget.NestedScrollView
+    <!-- androidx.core.widget.NestedScrollView -->
+    <com.lcodecore.tkrefreshlayout.views.TbNestedScrollView
+        android:id="@+id/home_pager_nested_scroller"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never">
@@ -16,33 +19,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- 轮播图 TODO:将来高度设置大一些 -->
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/home_pager_header_container"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="14dp"
-                android:layout_height="@dimen/dp_125">
+                android:layout_height="wrap_content">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/looper_pager"
-                    android:overScrollMode="never"
+                <!-- 轮播图 TODO:将来高度设置大一些 -->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_marginBottom="14dp"
+                    android:layout_height="@dimen/dp_125">
 
-                <LinearLayout
-                    android:id="@+id/loop_point_container"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content" />
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/looper_pager"
+                        android:overScrollMode="never"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-            </RelativeLayout>
+                    <LinearLayout
+                        android:id="@+id/loop_point_container"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
 
+                </RelativeLayout>
 
-            <!-- 标题 -->
-            <include layout="@layout/include_home_pager_title_part" />
+                <!-- 标题 -->
+                <include layout="@layout/include_home_pager_title_part" />
 
+            </LinearLayout>
 
             <!-- 显示内容的循环视图 -->
             <androidx.recyclerview.widget.RecyclerView
@@ -50,11 +59,11 @@
                 android:layout_marginTop="11dp"
                 android:overScrollMode="never"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="600dp"/>
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </com.lcodecore.tkrefreshlayout.views.TbNestedScrollView>
 
 </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 

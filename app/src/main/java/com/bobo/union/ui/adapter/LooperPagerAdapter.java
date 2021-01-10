@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bobo.union.R;
 import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.UrlUtils;
 import com.bumptech.glide.Glide;
 
@@ -44,7 +45,15 @@ public class LooperPagerAdapter extends PagerAdapter {
 
         // 获取轮播图图片url
         HomePagerContent.DataBean dataBean = mData.get(realPosition);
-        String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url());
+        // 因为iamgeView的宽高是：MATCH_PARENT，需要拿父控件的宽高
+        // int measuredWidth = container.getMeasuredWidth();
+        // int measuredHeight = container.getMeasuredHeight();
+        // LogUtils.d(LooperPagerAdapter.this, " measuredWidth --> " + measuredWidth
+        //         + " measuredHeight --> " + measuredHeight);
+        // int ivSize = (measuredWidth > measuredHeight ? measuredWidth : measuredHeight) / 2;
+        // 动态计算出540避免不同手机计算出结果不一样导致部分手机请求不到图片 直接写300
+        String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(), 300);
+        LogUtils.d(LooperPagerAdapter.this, "coverUrl--> " + coverUrl);
         // java代码写布局没有用XML
         ImageView iv = new ImageView(container.getContext());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

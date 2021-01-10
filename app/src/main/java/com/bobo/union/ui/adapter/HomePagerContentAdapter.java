@@ -32,9 +32,15 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
 
     private List<HomePagerContent.DataBean> mData = new ArrayList<>();
 
+    // 测试用
+    private int testCount = 1;
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // 这里打印log是因为这个方法不可一直调用 item要回收使用的
+        LogUtils.d(this, "onCreateViewHolder..." + testCount);
+        testCount++;
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.
                 item_home_pager_content, parent, false);
         return new InnerHolder(itemView);
@@ -42,6 +48,8 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+        // 绑定数据可以一直调用 item要回收使用
+        LogUtils.d(this, "onBindViewHolder... " + position);
         HomePagerContent.DataBean dataBean = mData.get(position);
         // 设置（绑定）数据
         holder.setData(dataBean);
@@ -110,21 +118,31 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
 
         public void setData(HomePagerContent.DataBean dataBean) {
             Context context = itemView.getContext();
-            LogUtils.d(this, "url -- > " + dataBean.getPict_url());
+            // LogUtils.d(this, "url -- > " + dataBean.getPict_url());
 
             // 设置左边的图片
-            Glide.with(context).load(UrlUtils.getCoverPath(dataBean.getPict_url()))
+            ViewGroup.LayoutParams layoutParams = cover.getLayoutParams();
+            // int width = layoutParams.width;
+            // int height = layoutParams.height;
+            // int coverSize = (width > height ? width : height) / 2;
+            // LogUtils.d(HomePagerContentAdapter.this, "width --> " + width +
+            //         " height --> " + height);
+            // String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), coverSize);
+            // 动态计算出105请求不到图片直接写100
+            String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), 100);
+            // LogUtils.d(HomePagerContentAdapter.this, "coverPath --> " + coverPath);
+            Glide.with(context).load(coverPath)
                     .placeholder(R.mipmap.bobo_launch).into(cover);
 
             // 设置右上商品标题
             title.setText(dataBean.getTitle());
             String finalPrice = dataBean.getZk_final_price();
-            LogUtils.d(this, "finalPrice --> " + finalPrice);
+            // LogUtils.d(this, "finalPrice --> " + finalPrice);
             long couponAmount = dataBean.getCoupon_amount();
-            LogUtils.d(this, "省 * 元 --> " + couponAmount);
+            // LogUtils.d(this, "省 * 元 --> " + couponAmount);
             // 原价 - 优惠价格 = 券后价
             float resultPrice = Float.parseFloat(finalPrice) - couponAmount;
-            LogUtils.d(this, "resultPrice --> " + resultPrice);
+            // LogUtils.d(this, "resultPrice --> " + resultPrice);
             // 右下二券后价格 保留2位小数
             finalPriceTv.setText(String.format("%.2f", resultPrice));
 

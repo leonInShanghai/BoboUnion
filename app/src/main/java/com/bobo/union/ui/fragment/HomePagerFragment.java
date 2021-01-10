@@ -1,13 +1,11 @@
 package com.bobo.union.ui.fragment;
 
 import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +20,7 @@ import com.bobo.union.model.doman.HomePagerContent;
 import com.bobo.union.presenter.impl.CategoryPagePresenterImpl;
 import com.bobo.union.ui.adapter.HomePagerContentAdapter;
 import com.bobo.union.ui.adapter.LooperPagerAdapter;
+import com.lcodecore.tkrefreshlayout.views.TbNestedScrollView;
 import com.bobo.union.utils.Constants;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.SizeUtils;
@@ -29,8 +28,6 @@ import com.bobo.union.utils.ToastUtil;
 import com.bobo.union.view.ICategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.footer.BallPulseView;
-import com.vondear.rxui.view.wavesidebar.adapter.OnLoadMoreListener;
 
 import java.util.List;
 
@@ -76,6 +73,12 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @BindView(R.id.home_pager_refresh)
     public TwinklingRefreshLayout twinklingRefreshLayout;
 
+    @BindView(R.id.home_pager_header_container)
+    public LinearLayout homeHeaderContainer;
+
+    @BindView(R.id.home_pager_nested_scroller)
+    public TbNestedScrollView homePagerNestedView;
+
     // 展示内容的循环视图的适配器
     private HomePagerContentAdapter mContentAdapter;
 
@@ -99,6 +102,39 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     protected void initListener() {
+
+        twinklingRefreshLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
+                .OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+              int headerHeight = homeHeaderContainer.getMeasuredHeight();
+              int measuredHeight = twinklingRefreshLayout.getMeasuredHeight();
+                LogUtils.d(HomePagerFragment.this, "headerHeight --> " + headerHeight );
+              if (measuredHeight > 0 && headerHeight > 0) {
+                  homePagerNestedView.setHeaderHeight(headerHeight);
+                  LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mConnectList
+                          .getLayoutParams();
+                  layoutParams.height = measuredHeight;
+                  mConnectList.setLayoutParams(layoutParams);
+                  // 移除监听避免重复调用
+                  twinklingRefreshLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+              }
+              LogUtils.d(HomePagerFragment.this, "twinklingRefreshLayout measuredHeight --> "
+                      + measuredHeight );
+            }
+        });
+
+        // 特惠的点击事件(测试用)
+        currentCategoryTitleTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int measuredHeight = mConnectList.getMeasuredHeight();
+                int height = mConnectList.getHeight();
+                LogUtils.d(HomePagerFragment.this, "measuredHeight --> " + measuredHeight + " height --> " + height);
+                // 优化前recyclerView的高度：measuredHeight --> 12598
+            }
+        });
+
         looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -183,10 +219,10 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         // 设置刷新相关属性
         twinklingRefreshLayout.setEnableRefresh(false); // 不要下拉刷新
         twinklingRefreshLayout.setEnableLoadmore(true); // 要上拉加载更多
-        // 设置和app主题一样颜色的BallPulseView（上拉加载更多自定义view）
-        BallPulseView mBallPulseView = new BallPulseView(getContext());
-        mBallPulseView.setAnimatingColor(getResources().getColor(R.color.colorPrimary));
-        twinklingRefreshLayout.setBottomView(mBallPulseView);
+        // 设置和app主题一样颜色的BallPulseView（上拉加载更多自定义view）后面直接修改第三方的代码此段代码注释不影响使用
+//        BallPulseView mBallPulseView = new BallPulseView(getContext());
+//        mBallPulseView.setAnimatingColor(getResources().getColor(R.color.colorPrimary));
+//        twinklingRefreshLayout.setBottomView(mBallPulseView);
     }
 
     @Override

@@ -21,9 +21,10 @@ public class UrlUtils {
      * //gw.alicdn.com/bao/uploaded/i1/2200812029962/O1CN01C6QZ1a2NSeCN64glY_!!0-item_pic.jpg
      * 要加工才能用
      * @param pict_url
-     * @return
+     * @return http://gw.alicdn.com/bao/uploaded/i1/2200812029962/O1CN01C6QZ1a2NSeCN64glY_!!0-item_
+     * pic.jpg_140x140.jpg
      */
-    public static String getCoverPath(String pict_url) {
-        return "https:" + pict_url;
+    public static String getCoverPath(String pict_url, int size) {
+        return "https:" + pict_url + "_" + size + "x" + size + ".jpg";
     }
 }
