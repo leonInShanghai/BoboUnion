@@ -33,37 +33,10 @@ public class CategoryPagePresenterImpl implements ICategoryPagerPresenter {
     
     // 请求分页默认是1
     public static final int DEFAULT_PAGE = 1;
-    
-    public static CategoryPagePresenterImpl sInstance = null;
 
     // 页码成员变量（根据不同的categoryId以获取不同的页码）
     private Integer mCurrentPage;
 
-    /**
-     * 单例标配 私有的构造方法
-     */
-    private CategoryPagePresenterImpl() {
-
-    }
-
-    /**
-     * 懒汉式单例 不到万不得已不实例化自己
-     * @return
-     */
-    public static CategoryPagePresenterImpl getInstance() {
-
-        // 注意加锁避免线程安全风险
-        if (sInstance == null) {
-            synchronized (CategoryPagePresenterImpl.class) {
-                if (sInstance == null) {
-                    sInstance = new CategoryPagePresenterImpl();
-                }
-            }
-
-        }
-
-        return sInstance;
-    }
 
     @Override
     public void getContentByCategoryId(final int categoryId) {

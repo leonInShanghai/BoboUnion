@@ -1,17 +1,22 @@
 package com.bobo.union.ui.fragment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bobo.union.R;
 import com.bobo.union.base.BaseFragment;
 import com.bobo.union.model.doman.Categories;
+import com.bobo.union.presenter.IHomePresenter;
 import com.bobo.union.presenter.impl.HomePresenterImpl;
 import com.bobo.union.ui.adapter.HomePagerAdapter;
 import com.bobo.union.utils.LogUtils;
+import com.bobo.union.utils.PresenterManager;
 import com.bobo.union.view.IHomeCallback;
 import com.google.android.material.tabs.TabLayout;
 
@@ -29,7 +34,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     TabLayout mTabLayout;
 
     // 本页面的presenter
-    private HomePresenterImpl mHomePresenter;
+    private IHomePresenter mHomePresenter;
 
     // 顶部导航栏最下面的指示器切换时的viewpager
     @BindView(R.id.home_pager)
@@ -43,6 +48,19 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         return R.layout.fragment_home;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        LogUtils.d(this, "on create view...");
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        LogUtils.d(this, "on Destroy view...");
+        super.onDestroy();
+    }
 
     @Override
     protected void initView(View rootView) {
@@ -61,7 +79,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     @Override
     protected void initPresenter() {
         // 实例化自己的prestenter
-        mHomePresenter = new HomePresenterImpl();
+        mHomePresenter = PresenterManager.getInstance().getHomePresenter();
 
         // 注册回调接口
         mHomePresenter.registerViewCallback(this);

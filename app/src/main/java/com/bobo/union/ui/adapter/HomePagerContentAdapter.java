@@ -35,6 +35,9 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
     // 测试用
     private int testCount = 1;
 
+    // 供外界设置的点击事件对象
+    private OnListItemClickListener mItemClickListener = null;
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,6 +56,19 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
         HomePagerContent.DataBean dataBean = mData.get(position);
         // 设置（绑定）数据
         holder.setData(dataBean);
+
+        // 在onBindViewHolder中设置点击事件
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 点击事件传递
+                if (mItemClickListener != null) {
+                    // HomePagerContent.DataBean item = mData.get(position);
+                    // mItemClickListener.onItemClick(item);
+                    mItemClickListener.onItemClick(dataBean);
+                }
+            }
+        });
     }
 
     @Override
@@ -160,5 +176,20 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             sellCountTv.setText(String.format(context.getString(R.string.text_goods_sell_count),
                     dataBean.getVolume()));
         }
+    }
+
+    /**
+     * 供外界设置的点击事件对象赋值
+     * @param l
+     */
+    public void setOnListItemClickListener(OnListItemClickListener l) {
+        this.mItemClickListener = l;
+    }
+
+    /**
+     * 传递点击事件的接口
+     */
+    public interface OnListItemClickListener {
+        void onItemClick(HomePagerContent.DataBean item);
     }
 }

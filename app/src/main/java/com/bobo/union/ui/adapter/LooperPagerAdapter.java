@@ -27,6 +27,9 @@ public class LooperPagerAdapter extends PagerAdapter {
     // 数据源
     private List<HomePagerContent.DataBean> mData = new ArrayList<>();
 
+    // 点击事件接口对象
+    private OnLooperPagerItemClickListener mOnItemClickListener = null;
+
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
@@ -53,14 +56,26 @@ public class LooperPagerAdapter extends PagerAdapter {
         // int ivSize = (measuredWidth > measuredHeight ? measuredWidth : measuredHeight) / 2;
         // 动态计算出540避免不同手机计算出结果不一样导致部分手机请求不到图片 直接写300
         String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(), 300);
-        LogUtils.d(LooperPagerAdapter.this, "coverUrl--> " + coverUrl);
+        // LogUtils.d(LooperPagerAdapter.this, "coverUrl--> " + coverUrl);
         // java代码写布局没有用XML
         ImageView iv = new ImageView(container.getContext());
+
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         iv.setLayoutParams(layoutParams);
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Glide.with(container.getContext()).load(coverUrl).placeholder(R.mipmap.bobo_launch).into(iv);
+        // 设置轮播图点击事件
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mOnItemClickListener != null) {
+                    // HomePagerContent.DataBean item = mData.get(realPosition);
+                    // mOnItemClickListener.onLooperItemClick(item);
+                    mOnItemClickListener.onLooperItemClick(dataBean);
+                }
+            }
+        });
         // 添加到container
         container.addView(iv);
         return iv;
@@ -89,5 +104,20 @@ public class LooperPagerAdapter extends PagerAdapter {
         mData.addAll(contents);
         // 刷新界面
         notifyDataSetChanged();
+    }
+
+    /**
+     * 供外界使用设置轮播图点击事件的监听
+     * @param l
+     */
+    public void setOnLooperPagerItemClickListener(OnLooperPagerItemClickListener l) {
+        mOnItemClickListener = l;
+    }
+
+    /**
+     * 传递点击轮播图事件的接口
+     */
+    public interface OnLooperPagerItemClickListener {
+        void onLooperItemClick(HomePagerContent.DataBean item);
     }
 }

@@ -58,7 +58,7 @@ public class TbNestedScrollView extends NestedScrollView {
             this.mRecyclerView = (RecyclerView) target;
         }
 
-        Log.d(TAG, "dy -----> " + dy);
+        // Log.d(TAG, "dy -----> " + dy);
         if (mOriginScroll < mHeaderHeight) {
             scrollBy(dx, dy);
             consumed[0] = dx;
@@ -70,7 +70,7 @@ public class TbNestedScrollView extends NestedScrollView {
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         mOriginScroll = t;
-        Log.d(TAG, "vertical -----> " + t);
+        // Log.d(TAG, "vertical -----> " + t);
         super.onScrollChanged(l, t, oldl, oldt);
     }
 
@@ -82,7 +82,7 @@ public class TbNestedScrollView extends NestedScrollView {
         if (mRecyclerView != null) {
             // 传一个int类型的direction 正数代表向上复数代表向下 注意：不可直接取反direction 该传正数传正数该传负数传负数
             boolean isBottom = !mRecyclerView.canScrollVertically(1);
-            Log.d(TAG, "canScroll -----> " + isBottom);
+            // Log.d(TAG, "canScroll -----> " + isBottom);
             return isBottom;
         } else {
             return false;

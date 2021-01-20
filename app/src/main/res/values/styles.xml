@@ -17,4 +17,9 @@
         <item name="android:windowBackground">@drawable/layer_launch</item>
     </style>
 
+    <!-- 声明XML自定义属性(AutoLoopViewPager) -->
+    <declare-styleable name="AutoLooperStyle">
+        <attr name="duration" format="integer"/>
+    </declare-styleable>
+
 </resources>

@@ -1,15 +1,14 @@
 package com.bobo.union.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bobo.union.R;
+import com.bobo.union.base.BaseActivity;
 import com.bobo.union.base.BaseFragment;
 import com.bobo.union.ui.fragment.HomeFragment;
 import com.bobo.union.ui.fragment.RedPacketFragment;
@@ -27,7 +26,7 @@ import butterknife.Unbinder;
  * Created by Leon on 2020-08-15 Copyright © Leon. All rights reserved.
  * Functions: 首页
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.main_navation_bar)
     BottomNavigationView mNavigationView;
@@ -42,35 +41,29 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager mFM;
 
     // ButterKnife
-    private Unbinder mBind;
+    // private Unbinder mBind;
+
+    // Fragment切换时用于周转的fragment变量（上一次显示的fragment）
+    private BaseFragment lastOneFragment = null;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
+    }
 
-        // 使用butterKnie实例化控件
-        mBind = ButterKnife.bind(this);
-
+    @Override
+    protected void initView() {
         // 初始化各个fragment
         initFragments();
-        
-        // 底部tabbar点击事件的处理
-        initListener();
 
         // 测试代码tabbar的另外一种实现方式
         // startActivity(new Intent(this, TestActivity.class));
     }
 
     @Override
-    protected void onDestroy() {
-
-        // 当页面销毁解绑ButterKnife避免内存泄漏
-        if (mBind != null) {
-            mBind.unbind();
-        }
-
-        super.onDestroy();
+    protected void initEvent() {
+        initListener();
     }
 
     // 实例化各个碎片
@@ -160,7 +153,21 @@ public class MainActivity extends AppCompatActivity {
         // 开启事物
         FragmentTransaction fragmentTransaction = mFM.beginTransaction();
 
-        fragmentTransaction.replace(R.id.main_page_connecter, targetFragment);
+        // FIXME:replace的方式会导致生命周期的变化 要修改成add和hide的方式
+        // fragmentTransaction.replace(R.id.main_page_connecter, targetFragment);
+        // 要修改成add和hide的方式来控制Fragment的切换
+        if (!targetFragment.isAdded()) {
+            // 如果没有被添加过才能添加
+            fragmentTransaction.add(R.id.main_page_connecter, targetFragment);
+        } else {
+            // 如果被添加过则显示
+            fragmentTransaction.show(targetFragment);
+        }
+        if (lastOneFragment != null) {
+            // 上一个fragment不为空时要隐藏
+            fragmentTransaction.hide(lastOneFragment);
+        }
+        lastOneFragment = targetFragment;
 
         // 一定要提交事物
         fragmentTransaction.commit();

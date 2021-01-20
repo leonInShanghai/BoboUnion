@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-    android:id="@+id/home_pager_refresh"
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout android:id="@+id/home_pager_refresh"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- androidx.core.widget.NestedScrollView -->
     <com.lcodecore.tkrefreshlayout.views.TbNestedScrollView
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:overScrollMode="never">
 
+        <!-- android:descendantFocusability="blocksDescendants" -->
         <LinearLayout
             android:orientation="vertical"
             android:gravity="center"
@@ -31,11 +32,13 @@
                     android:layout_marginBottom="14dp"
                     android:layout_height="@dimen/dp_125">
 
-                    <androidx.viewpager.widget.ViewPager
+                    <!-- androidx.viewpager.widget.ViewPager -->
+                    <com.bobo.union.ui.custom.AutoLoopViewPager
                         android:id="@+id/looper_pager"
                         android:overScrollMode="never"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        app:duration="2000"/>
 
                     <LinearLayout
                         android:id="@+id/loop_point_container"
@@ -49,14 +52,16 @@
                 </RelativeLayout>
 
                 <!-- 标题 -->
-                <include layout="@layout/include_home_pager_title_part" />
+                <include layout="@layout/include_home_pager_title_part"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="11dp"/>
 
             </LinearLayout>
 
-            <!-- 显示内容的循环视图 -->
+            <!-- 显示内容的循环视图 android:layout_marginTop="11dp" -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_pager_content_list"
-                android:layout_marginTop="11dp"
                 android:overScrollMode="never"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"/>

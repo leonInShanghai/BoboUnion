@@ -48,7 +48,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
 
         if (categoryList != null){
-            LogUtils.d(this, "getCount() categoryList.size == " + categoryList.size());
+            // LogUtils.d(this, "getCount() categoryList.size == " + categoryList.size());
         }
 
         return categoryList == null ? 0 : categoryList.size();
@@ -68,7 +68,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         // 再添加新数据
         this.categoryList.addAll(data);
 
-        LogUtils.d(this, "setCategories categoryList.size == " + categoryList.size());
+        // LogUtils.d(this, "setCategories categoryList.size == " + categoryList.size());
 
         // 刷新界面
         notifyDataSetChanged();

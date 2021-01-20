@@ -8,6 +8,7 @@ public class UrlUtils {
 
     /**
      * 拼接首页下个各个子页面请求的url
+     *
      * @param materiaId
      * @param page
      * @return
@@ -20,6 +21,7 @@ public class UrlUtils {
      * 拼接商品图片url 网络请求回来的如下：
      * //gw.alicdn.com/bao/uploaded/i1/2200812029962/O1CN01C6QZ1a2NSeCN64glY_!!0-item_pic.jpg
      * 要加工才能用
+     *
      * @param pict_url
      * @return http://gw.alicdn.com/bao/uploaded/i1/2200812029962/O1CN01C6QZ1a2NSeCN64glY_!!0-item_
      * pic.jpg_140x140.jpg
@@ -27,4 +29,13 @@ public class UrlUtils {
     public static String getCoverPath(String pict_url, int size) {
         return "https:" + pict_url + "_" + size + "x" + size + ".jpg";
     }
+
+    public static String getTicketUrl(String url) {
+        if (url.startsWith("http") || url.startsWith("https")) {
+            return url;
+        } else {
+            return "https:" + url;
+        }
+    }
 }
+

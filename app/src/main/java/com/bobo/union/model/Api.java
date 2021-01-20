@@ -2,9 +2,13 @@ package com.bobo.union.model;
 
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.model.doman.TicketParams;
+import com.bobo.union.model.doman.TicketResult;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Url;
 
 /**
@@ -19,6 +23,9 @@ public interface Api {
     // 非固定式url 写法
     @GET
     Call<HomePagerContent> getHomePagerContent(@Url String url);
+
+    @POST("tpwd")
+    Call<TicketResult> getTicket(@Body TicketParams ticketParams);
 }
 
 
