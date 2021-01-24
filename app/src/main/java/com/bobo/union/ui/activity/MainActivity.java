@@ -53,6 +53,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void initPresenter() {
+
+    }
+
+    @Override
     protected void initView() {
         // 初始化各个fragment
         initFragments();

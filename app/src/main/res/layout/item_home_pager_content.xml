@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/goods_cover"
+        android:layout_marginLeft="5dp"
         android:src="@mipmap/ic_launcher"
         android:layout_width="80dp"
         android:layout_height="80dp"/>

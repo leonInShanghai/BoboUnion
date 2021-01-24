@@ -11,7 +11,7 @@
         android:name=".base.BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- .ui.activity.MainActivity -->
@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.TestActivity" android:screenOrientation="portrait" />
+        <!--  <activity android:name=".ui.activity.TestActivity" android:screenOrientation="portrait" /> -->
+
         <!-- 口令页面 singleTop启动模式，如果发现有对应的Activity实例正位于栈顶，则重复利用，不再生成新的实例 -->
         <activity android:name=".ui.activity.TicketActivity" android:launchMode="singleTop"
             android:screenOrientation="portrait" />

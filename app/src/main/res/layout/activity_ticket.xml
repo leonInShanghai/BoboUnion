@@ -1,11 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary">
+
+        <!-- padding可以增加箭头点击事件的作用域 -->
+        <ImageView
+            android:id="@+id/ticket_back_press"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_tao_kou_ling"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="33dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+        <!-- android:src="@mipmap/bobo_launch"
+         android:visibility="gone"自己增加 -->
+        <ImageView
+            android:id="@+id/ticket_cover"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
+
+        <!--  android:layout_width="33dp" -->
+        <com.bobo.union.ui.custom.LoadingView
+            android:id="@+id/ticket_cover_loading"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"/>
+
+        <!-- android:textColor="@color/white"字体设置为白色和背景完全一样用户看不到 -->
+        <TextView
+            android:id="@+id/ticket_load_retry"
+            android:layout_width="wrap_content"
+            android:text="加载出错，请返回重新加载"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <!-- android:focusable=”false” 这行就是不可获取焦点即不能编辑 -->
+    <EditText
+        android:id="@+id/ticket_code"
+        android:singleLine="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="244dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textColor="#4a4a4a"
+        android:background="@drawable/shape_ticket_code_box_bg"
+        android:focusable="false"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/ticket_copy_or_open_btn"
+        android:layout_width="141dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_buttom_bg"
+        android:gravity="center"
         android:text="领券"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"/>
 
 </LinearLayout>

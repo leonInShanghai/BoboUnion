@@ -30,6 +30,15 @@ public class UrlUtils {
         return "https:" + pict_url + "_" + size + "x" + size + ".jpg";
     }
 
+    /**
+     * 全路径获取图片Url 这里获取到的图片比较大 尽量使用getCoverPath(String pict_url, int size)
+     * @param pict_url
+     * @return
+     */
+    public static String getCoverPath(String pict_url) {
+        return "https:" + pict_url;
+    }
+
     public static String getTicketUrl(String url) {
         if (url.startsWith("http") || url.startsWith("https")) {
             return url;

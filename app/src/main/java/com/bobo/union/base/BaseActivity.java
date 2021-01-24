@@ -30,7 +30,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 各个控件的点击触摸等事件的监听
         initEvent();
+
+        // 实例化presenter
+        initPresenter();
     }
+
+    protected abstract void initPresenter();
 
     /**
      * 子类必须实现 实例化各个控件
@@ -58,6 +63,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             mBind.unbind();
         }
 
+        this.release();
+
         super.onDestroy();
+    }
+
+    /**
+     * 释放（解绑）Presenter
+     * 子类根据自己业务需要决定是否要重写本方法
+     */
+    protected void release() {
+
     }
 }
