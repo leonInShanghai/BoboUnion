@@ -2,6 +2,8 @@ package com.bobo.union.model;
 
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.model.doman.SelectedContent;
+import com.bobo.union.model.doman.SelectedPageCategory;
 import com.bobo.union.model.doman.TicketParams;
 import com.bobo.union.model.doman.TicketResult;
 
@@ -9,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -26,6 +29,12 @@ public interface Api {
 
     @POST("tpwd")
     Call<TicketResult> getTicket(@Body TicketParams ticketParams);
+
+    @GET("recommend/categories")
+    Call<SelectedPageCategory> getSelectedPageCategories();
+
+    @GET
+    Call<SelectedContent> getSelectedPageContent(@Url String url);
 }
 
 

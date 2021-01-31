@@ -46,5 +46,13 @@ public class UrlUtils {
             return "https:" + url;
         }
     }
+
+    /**
+     * 拼接精选详情内容URL
+     * @param categoryId
+     */
+    public static String getSelectedPageContentUrl(int categoryId) {
+        return "recommend/" + categoryId;
+    }
 }
 
