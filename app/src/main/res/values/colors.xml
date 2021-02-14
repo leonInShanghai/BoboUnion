@@ -8,6 +8,7 @@
 
     <color name="colorTabSelected">#ffffff</color>
     <color name="colorTabNormal">#aaffffff</color>
-    <color name="color_tmall">#D0021B</color>
+    <color name="colorTmall">#D0021B</color>
     <color name="color_pager__bg">#EFEEEE</color>
+    <color name="colorEFEEEE">#EFEEEE</color>
 </resources>

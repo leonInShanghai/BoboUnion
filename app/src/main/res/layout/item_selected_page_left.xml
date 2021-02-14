@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/left_category_tv"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center"
+    android:textSize="14sp"
+    tools:text="零食"/>
