@@ -1,7 +1,9 @@
 package com.bobo.union.ui.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,8 @@ import com.bobo.union.base.BaseFragment;
 import com.bobo.union.model.doman.SelectedContent;
 import com.bobo.union.model.doman.SelectedPageCategory;
 import com.bobo.union.presenter.ISelectedPagePresenter;
+import com.bobo.union.presenter.ITikcetPresenter;
+import com.bobo.union.ui.activity.TicketActivity;
 import com.bobo.union.ui.adapter.SelectedPageContentAdapter;
 import com.bobo.union.ui.adapter.SelectedPageLeftAdapter;
 import com.bobo.union.utils.LogUtils;
@@ -26,10 +30,10 @@ import butterknife.BindView;
 
 /**
  * Created by Leon on 2020-08-15 Copyright © Leon. All rights reserved.
- * Functions:
+ * Functions: 精选页面
  */
 public class SelectedFragment extends BaseFragment implements ISelectedPageCallbacck,
-        SelectedPageLeftAdapter.OnLeftItemClickListener {
+        SelectedPageLeftAdapter.OnLeftItemClickListener, SelectedPageContentAdapter.OnSelectedPageContentItemClickLinster {
 
     @BindView(R.id.left_category_list)
     public RecyclerView leftCategoryList;
@@ -47,6 +51,18 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
         mSelectedPagePresenter = PresenterManager.getInstance().getSelectedPagePresenter();
         mSelectedPagePresenter.registerViewCallback(this);
         mSelectedPagePresenter.getCategories();
+    }
+
+    /**
+     * 当加载失败时用户点击了“网络出错请点击重试”
+     */
+    @Override
+    protected void onRetryClick() {
+        // 重试
+        if (mSelectedPagePresenter != null) {
+            // 重新加载内容
+            mSelectedPagePresenter.reloadContent();
+        }
     }
 
     @Override
@@ -94,6 +110,7 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     protected void initListener() {
         super.initListener();
         mLeftAdapter.setOnLeftItemClickListener(this);
+        mRightAdapter.setOnSelectedPageContentItemClickLinster(this);
     }
 
     /**
@@ -126,12 +143,13 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
         // LogUtils.d(this, "onContentLoaded --- > " + content.getData()
         // .gettbk_dg_optimus_material_response().getresult_list().getmap_data().get(0).getTitle());
         mRightAdapter.setData(content);
+        // 每当右边的内容数据加载回来 滚动到第0个item
         rightContentList.scrollToPosition(0);
     }
 
     @Override
     public void onError() {
-
+        setUpState(State.ERROR);
     }
 
     @Override
@@ -152,5 +170,26 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     public void onLeftItemClick(SelectedPageCategory.DataBean item) {
         LogUtils.d(this, "current left selected item --> " + item.toString());
         mSelectedPagePresenter.getContentByCategory(item);
+    }
+
+    /**
+     * 右边的某个item被点击了
+     * @param item
+     */
+    @Override
+    public void onContentItemClick(SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.result_listBean.
+                                               UatmTbkItemBean item) {
+        // 右边的内容item被点击后跳转到淘口令界面
+        String title = item.getTitle();
+        String url = item.getCoupon_click_url();
+        if (TextUtils.isEmpty(url)) {
+            // 详情的url
+            url = item.getClick_url();
+        }
+        String cover = item.getPict_url();
+        // 拿到TicketPressenter去加载数据
+        ITikcetPresenter ticketPressenter = PresenterManager.getInstance().getTicketPressenter();
+        ticketPressenter.getTicket(title, url, cover);
+        startActivity(new Intent(getContext(), TicketActivity.class));
     }
 }

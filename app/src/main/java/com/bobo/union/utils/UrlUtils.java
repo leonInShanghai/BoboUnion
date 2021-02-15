@@ -27,16 +27,25 @@ public class UrlUtils {
      * pic.jpg_140x140.jpg
      */
     public static String getCoverPath(String pict_url, int size) {
-        return "https:" + pict_url + "_" + size + "x" + size + ".jpg";
+        if (pict_url.startsWith("http") || pict_url.startsWith("https")) {
+            return pict_url + "_" + size + "x" + size + ".jpg";
+        } else {
+            return "https:" + pict_url + "_" + size + "x" + size + ".jpg";
+        }
     }
 
     /**
+     * FIXME:
      * 全路径获取图片Url 这里获取到的图片比较大 尽量使用getCoverPath(String pict_url, int size)
      * @param pict_url
      * @return
      */
     public static String getCoverPath(String pict_url) {
-        return "https:" + pict_url;
+        if (pict_url.startsWith("http") || pict_url.startsWith("https")) {
+            return pict_url;
+        } else {
+            return "https:" + pict_url;
+        }
     }
 
     public static String getTicketUrl(String url) {

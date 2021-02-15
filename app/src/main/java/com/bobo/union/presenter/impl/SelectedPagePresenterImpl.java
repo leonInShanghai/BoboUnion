@@ -35,7 +35,6 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
      */
     private ISelectedPageCallbacck mViewCallbacck = null;
     private final Api mApi;
-    private SelectedPageCategory.DataBean mCurrentCategoryItem = null;
 
     public SelectedPagePresenterImpl() {
         Retrofit retrofit = RetrofitManage.getInstance().getRetrofit();
@@ -87,8 +86,7 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
 
     @Override
     public void getContentByCategory(SelectedPageCategory.DataBean item) {
-        mCurrentCategoryItem = item;
-        int categoryId = mCurrentCategoryItem.getFavorites_id();
+        int categoryId = item.getFavorites_id();
         LogUtils.d(this, "categoryId --> " + categoryId);
         String targetUrl = UrlUtils.getSelectedPageContentUrl(categoryId);
         Call<SelectedContent> task = mApi.getSelectedPageContent(targetUrl);
@@ -122,9 +120,14 @@ public class SelectedPagePresenterImpl implements ISelectedPagePresenter {
      */
     @Override
     public void reloadContent() {
-        if (mCurrentCategoryItem != null) {
-            getContentByCategory(mCurrentCategoryItem);
-        }
+
+        // 注释的代码是大据写错了，用户点击从新加载内容应加载左边的分类 不应加载右边的内容
+        // if (mCurrentCategoryItem != null) {
+        //     getContentByCategory(mCurrentCategoryItem);
+        // }
+
+        // 正确的写法（加载分类）
+        this.getCategories();
     }
 
     @Override

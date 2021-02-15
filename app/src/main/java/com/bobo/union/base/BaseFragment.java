@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bobo.union.R;
 import com.bobo.union.utils.LogUtils;
+import com.bobo.union.utils.SizeUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -190,7 +192,22 @@ public abstract class BaseFragment extends Fragment {
      * @return
      */
     protected View loadLoadingView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragmnet_loading, container, false);
+
+        View view = inflater.inflate(R.layout.fragmnet_loading, container, false);
+        LinearLayout linearLayout = view.findViewById(R.id.loading_container);
+        // 2021-2-15获取loading控件和当前设备屏幕的高度再让其居中
+        int intw=View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int inth=View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        linearLayout.measure(intw, inth);
+        int loadingHeight = linearLayout.getMeasuredHeight();
+        int bottomMarginValue = (SizeUtils.getScreenHeight(getActivity()) / 2) - (loadingHeight + loadingHeight / 2);
+        // LogUtils.d(this,"loadingHeight: " + loadingHeight + " bottomMarginValue: " + bottomMarginValue);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)linearLayout.getLayoutParams();
+        params.bottomMargin = bottomMarginValue;
+        return view;
+
+        // 原来的写法
+        // return  inflater.inflate(R.layout.fragmnet_loading, container, false);
     }
 
     /**

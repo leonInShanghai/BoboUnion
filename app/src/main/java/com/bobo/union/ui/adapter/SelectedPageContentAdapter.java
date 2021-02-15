@@ -31,6 +31,9 @@ public class SelectedPageContentAdapter extends RecyclerView.Adapter<SelectedPag
     private List<SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.result_listBean.UatmTbkItemBean>
             mUatmTbkItemBeans;
 
+    // 点击事件接口成员变量
+    private OnSelectedPageContentItemClickLinster mContentItemClickLinster = null;
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,6 +47,18 @@ public class SelectedPageContentAdapter extends RecyclerView.Adapter<SelectedPag
         SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.result_listBean.UatmTbkItemBean itemData =
                 mUatmTbkItemBeans.get(position);
         holder.setData(itemData);
+
+        // 应该是“领券购买”被点击后跳转 itemView点击跳转会出现 有些商品没有淘口令的问题
+        // holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.buyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 向外界（宿主）传递点击事件
+                if (mContentItemClickLinster != null) {
+                    mContentItemClickLinster.onContentItemClick(itemData);
+                }
+            }
+        });
     }
 
     @Override
@@ -128,5 +143,21 @@ public class SelectedPageContentAdapter extends RecyclerView.Adapter<SelectedPag
                 offPriceTv.setText(itemData.getCoupon_info());
             }
         }
+    }
+
+    /**
+     * 供外界使用的点击事件接口set方法
+     * @param linster
+     */
+    public void setOnSelectedPageContentItemClickLinster(OnSelectedPageContentItemClickLinster linster) {
+        mContentItemClickLinster = linster;
+    }
+
+    /**
+     * 供外界使用的点击事件接口
+     */
+    public interface OnSelectedPageContentItemClickLinster {
+        void onContentItemClick(SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.result_listBean
+                                        .UatmTbkItemBean item);
     }
 }
