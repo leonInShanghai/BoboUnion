@@ -4,10 +4,12 @@ import android.security.NetworkSecurityPolicy;
 
 import com.bobo.union.presenter.ICategoryPagerPresenter;
 import com.bobo.union.presenter.IHomePresenter;
+import com.bobo.union.presenter.IOnSellPagePresenter;
 import com.bobo.union.presenter.ISelectedPagePresenter;
 import com.bobo.union.presenter.ITikcetPresenter;
 import com.bobo.union.presenter.impl.CategoryPagePresenterImpl;
 import com.bobo.union.presenter.impl.HomePresenterImpl;
+import com.bobo.union.presenter.impl.OnSellPagePresenterImpl;
 import com.bobo.union.presenter.impl.SelectedPagePresenterImpl;
 import com.bobo.union.presenter.impl.TicketPressenterImpl;
 
@@ -25,6 +27,7 @@ public class PresenterManager {
     private final IHomePresenter mHomePresenter;
     private final ITikcetPresenter mTicketPressenter;
     private final ISelectedPagePresenter mSelectedPagePresenter;
+    private final IOnSellPagePresenter mOnSellPagePresenter;
 
     // 返回接口隐藏具体的实现
     public ITikcetPresenter getTicketPressenter() {
@@ -47,11 +50,16 @@ public class PresenterManager {
         return mSelectedPagePresenter;
     }
 
+    public IOnSellPagePresenter getOnSellPagePresenter() {
+        return mOnSellPagePresenter;
+    }
+
     // 单例标配私有构造方法
     private PresenterManager() {
         mCategoryPagePresenter = new CategoryPagePresenterImpl();
         mHomePresenter = new HomePresenterImpl();
         mTicketPressenter = new TicketPressenterImpl();
         mSelectedPagePresenter = new SelectedPagePresenterImpl();
+        mOnSellPagePresenter = new OnSellPagePresenterImpl();
     }
 }

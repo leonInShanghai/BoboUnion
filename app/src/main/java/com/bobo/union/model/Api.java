@@ -2,6 +2,7 @@ package com.bobo.union.model;
 
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.model.doman.OnSellContent;
 import com.bobo.union.model.doman.SelectedContent;
 import com.bobo.union.model.doman.SelectedPageCategory;
 import com.bobo.union.model.doman.TicketParams;
@@ -35,6 +36,9 @@ public interface Api {
 
     @GET
     Call<SelectedContent> getSelectedPageContent(@Url String url);
+
+    @GET
+    Call<OnSellContent> getOnSellPageContent(@Url String url);
 }
 
 

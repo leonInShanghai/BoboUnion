@@ -48,7 +48,7 @@ public class SelectedPageContentAdapter extends RecyclerView.Adapter<SelectedPag
                 mUatmTbkItemBeans.get(position);
         holder.setData(itemData);
 
-        // 应该是“领券购买”被点击后跳转 itemView点击跳转会出现 有些商品没有淘口令的问题
+        // 应该是“领券购买”被点击后跳转 itemView点击跳转会出现:有些商品没有淘口令的问题
         // holder.itemView.setOnClickListener(new View.OnClickListener() {
         holder.buyBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -63,5 +63,13 @@ public class UrlUtils {
     public static String getSelectedPageContentUrl(int categoryId) {
         return "recommend/" + categoryId;
     }
+
+    /**
+     * 拼接特惠请求url 加载更多时要分页的
+     * @param currentPage
+     */
+    public static String getOnSellPageUrl(int currentPage) {
+        return "onSell/" + currentPage;
+    }
 }
 

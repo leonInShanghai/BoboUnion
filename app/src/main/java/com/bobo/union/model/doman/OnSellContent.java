@@ -190,18 +190,34 @@ public class OnSellContent {
                     this.map_data = map_data;
                 }
 
-                public static class MapDataBean {
+                public static class MapDataBean implements IBaseInfo {
                     /**
                      * category_id : 50009211
                      * category_name : null
-                     * click_url : //s.click.taobao.com/t?e=m%3D2%26s%3D9biiuNCEs2lw4vFB6t2Z2ueEDrYVVa64Dne87AjQPk9yINtkUhsv0AwIMIR498vZNnGHDv9u8g5m5nS0VR3oT0KAZCke%2BMGJxC%2FP4%2FZfPFbcQmwDRwHnn1oN8CPq4PKMZiqtwk9j5QNerBM5mSXVLdYGR5XowAWssShUjNLx%2BdusJxCFYEy%2FnzFmH8P00Bp%2FSdChf3U3iXY%2B5QowgvHJPA%3D%3D&scm=1007.15348.115058.0_3756&pvid=7a2d1a71-4355-4f43-8481-a11efc88d87c&app_pvid=59590_11.132.118.137_598_1607784789293&ptl=floorId:3756;originalFloorId:3756;pvid:7a2d1a71-4355-4f43-8481-a11efc88d87c;app_pvid:59590_11.132.118.137_598_1607784789293&union_lens=lensId%3AMAPI%401607784789%407a2d1a71-4355-4f43-8481-a11efc88d87c_587128169764%401
+                     * click_url : //s.click.taobao.com/t?e=m%3D2%26s%3D9biiuNCEs2lw4vFB6t2Z2ueEDrYVVa64Dne87AjQPk9yINt
+                     * kUhsv0AwIMIR498vZNnGHDv9u8g5m5nS0VR3oT0KAZCke%2BMGJxC%2FP4%2FZfPFbcQmwDRwHnn1oN8CPq4PKMZiqtwk9j5
+                     * QNerBM5mSXVLdYGR5XowAWssShUjNLx%2BdusJxCFYEy%2FnzFmH8P00Bp%2FSdChf3U3iXY%2B5QowgvHJPA%3D%3D&scm=
+                     * 1007.15348.115058.0_3756&pvid=7a2d1a71-4355-4f43-8481-a11efc88d87c&app_pvid=59590_11.132.118.137
+                     * _598_1607784789293&ptl=floorId:3756;originalFloorId:3756;pvid:7a2d1a71-4355-4f43-8481-a11efc88d8
+                     * 7c;app_pvid:59590_11.132.118.137_598_1607784789293&union_lens=lensId%3AMAPI%401607784789%407a2d1
+                     * a71-4355-4f43-8481-a11efc88d87c_587128169764%401
                      * commission_rate : 9.0
                      * coupon_amount : 10
-                     * coupon_click_url : //uland.taobao.com/coupon/edetail?e=LAAI0BURfKYNfLV8niU3R5TgU2jJNKOfNNtsjZw%2F%2FoLlBy0%2FNOvWo9LDJQhMgKWk%2BIEAvHjYUeRU%2BGq5uvbHnsuRTiT9oEhVZV8pr6FWc0MDY5xlXkOeMFgGZ9ZhjSjHmMHpNfYdHdBwWfUaU7r%2BdMHdg8oYVc%2FsB3IEI%2FtGZdTSBjM3vXy9T041UyeSsrqpDNJ7jXMyFwklM1ZJHcLCJg%3D%3D&&app_pvid=59590_11.132.118.137_598_1607784789293&ptl=floorId:3756;app_pvid:59590_11.132.118.137_598_1607784789293;tpp_pvid:7a2d1a71-4355-4f43-8481-a11efc88d87c&union_lens=lensId%3AMAPI%401607784789%407a2d1a71-4355-4f43-8481-a11efc88d87c_587128169764%401
+                     * coupon_click_url : //uland.taobao.com/coupon/edetail?e=LAAI0BURfKYNfLV8niU3R5TgU2jJNKOfNNtsjZw%
+                     * 2F%2FoLlBy0%2FNOvWo9LDJQhMgKWk%2BIEAvHjYUeRU%2BGq5uvbHnsuRTiT9oEhVZV8pr6FWc0MDY5xlXkOeMFgGZ9Zhj
+                     * SjHmMHpNfYdHdBwWfUaU7r%2BdMHdg8oYVc%2FsB3IEI%2FtGZdTSBjM3vXy9T041UyeSsrqpDNJ7jXMyFwklM1ZJHcLCJg%
+                     * 3D%3D&&app_pvid=59590_11.132.118.137_598_1607784789293&ptl=floorId:3756;app_pvid:59590_11.132.11
+                     * 8.137_598_1607784789293;tpp_pvid:7a2d1a71-4355-4f43-8481-a11efc88d87c&union_lens=lensId%3AMAPI%4
+                     * 01607784789%407a2d1a71-4355-4f43-8481-a11efc88d87c_587128169764%401
                      * coupon_end_time : 1608220799000
                      * coupon_info : null
                      * coupon_remain_count : 49477
-                     * coupon_share_url : //uland.taobao.com/coupon/edetail?e=LAAI0BURfKYNfLV8niU3R5TgU2jJNKOfNNtsjZw%2F%2FoLlBy0%2FNOvWo9LDJQhMgKWk%2BIEAvHjYUeRU%2BGq5uvbHnsuRTiT9oEhVZV8pr6FWc0MDY5xlXkOeMFgGZ9ZhjSjHmMHpNfYdHdBwWfUaU7r%2BdMHdg8oYVc%2FsB3IEI%2FtGZdTSBjM3vXy9T041UyeSsrqpDNJ7jXMyFwklM1ZJHcLCJg%3D%3D&&app_pvid=59590_11.132.118.137_598_1607784789293&ptl=floorId:3756;app_pvid:59590_11.132.118.137_598_1607784789293;tpp_pvid:7a2d1a71-4355-4f43-8481-a11efc88d87c&union_lens=lensId%3AMAPI%401607784789%407a2d1a71-4355-4f43-8481-a11efc88d87c_587128169764%401
+                     * coupon_share_url : //uland.taobao.com/coupon/edetail?e=LAAI0BURfKYNfLV8niU3R5TgU2jJNKOfNNtsjZw%2
+                     * F%2FoLlBy0%2FNOvWo9LDJQhMgKWk%2BIEAvHjYUeRU%2BGq5uvbHnsuRTiT9oEhVZV8pr6FWc0MDY5xlXkOeMFgGZ9ZhjSj
+                     * HmMHpNfYdHdBwWfUaU7r%2BdMHdg8oYVc%2FsB3IEI%2FtGZdTSBjM3vXy9T041UyeSsrqpDNJ7jXMyFwklM1ZJHcLCJg%3D
+                     * %3D&&app_pvid=59590_11.132.118.137_598_1607784789293&ptl=floorId:3756;app_pvid:59590_11.132.118.
+                     * 137_598_1607784789293;tpp_pvid:7a2d1a71-4355-4f43-8481-a11efc88d87c&union_lens=lensId%3AMAPI%401
+                     * 607784789%407a2d1a71-4355-4f43-8481-a11efc88d87c_587128169764%401
                      * coupon_start_fee : 39.0
                      * coupon_start_time : 1607616000000
                      * coupon_total_count : 50000
@@ -213,7 +229,10 @@ public class OnSellContent {
                      * pict_url : //img.alicdn.com/bao/uploaded/i1/1620417126/O1CN01qprPxB22Vl0WCYqdL_!!0-item_pic.jpg
                      * seller_id : 1620417126
                      * shop_title : null
-                     * small_images : {"string":["//img.alicdn.com/i4/1620417126/O1CN01UgLSwk22VkxmlyCVR_!!0-item_pic.jpg","//img.alicdn.com/i2/1620417126/O1CN0162lfIS22VkrSKYDXg_!!1620417126.jpg","//img.alicdn.com/i1/1620417126/O1CN01c69sps22VkxPxWAGO_!!1620417126.jpg","//img.alicdn.com/i4/1620417126/O1CN01OkQzU522VkrWiL9PW_!!1620417126.jpg"]}
+                     * small_images : {"string":["//img.alicdn.com/i4/1620417126/O1CN01UgLSwk22VkxmlyCVR_!!0-item_pic.j
+                     * pg","//img.alicdn.com/i2/1620417126/O1CN0162lfIS22VkrSKYDXg_!!1620417126.jpg","//img.alicdn.com/
+                     * i1/1620417126/O1CN01c69sps22VkxPxWAGO_!!1620417126.jpg","//img.alicdn.com/i4/1620417126/O1CN01Ok
+                     * QzU522VkrWiL9PW_!!1620417126.jpg"]}
                      * title : 耐时充电宝超薄小巧便携快充闪充适用于vivo华为oppo苹果充电宝
                      * user_type : 1
                      * volume : 1754
@@ -239,7 +258,7 @@ public class OnSellContent {
                     private String level_one_category_name;
                     private String nick;
                     private String pict_url;
-                    private int seller_id;
+                    private long seller_id;
                     private Object shop_title;
                     private SmallImagesBean small_images;
                     private String title;
@@ -399,11 +418,11 @@ public class OnSellContent {
                         this.pict_url = pict_url;
                     }
 
-                    public int getSeller_id() {
+                    public long getSeller_id() {
                         return seller_id;
                     }
 
-                    public void setSeller_id(int seller_id) {
+                    public void setSeller_id(long seller_id) {
                         this.seller_id = seller_id;
                     }
 
@@ -423,8 +442,20 @@ public class OnSellContent {
                         this.small_images = small_images;
                     }
 
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
+                    }
+
+                    @Override
+                    public String getUrl() {
+                        // coupon_click_url:领券页url
+                        // click_url：商品页url
+                        return coupon_click_url == null ? click_url : coupon_click_url;
                     }
 
                     public void setTitle(String title) {

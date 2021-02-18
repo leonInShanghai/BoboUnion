@@ -217,7 +217,7 @@ public class SelectedContent {
                             '}';
                 }
 
-                public static class UatmTbkItemBean {
+                public static class UatmTbkItemBean implements IBaseInfo{
                     /**
                      * click_url : https://s.click.taobao.com/t?e=m%3D2%26s%3DQqgvXVwF4QAcQipKwQzePOeEDrYVVa64yK8Cckff7
                      * TXjf2vlNIV67lbA7kVj6DOjxeoNewupcd6YzwUb1bbXppZwHxYkBYTUeP8T%2BYUOOiuIOBqu0asPv%2F0jCkSDmD6DKe3%2
@@ -382,8 +382,20 @@ public class SelectedContent {
                         this.status = status;
                     }
 
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
+                    }
+
+                    @Override
+                    public String getUrl() {
+                        // coupon_click_url:领券页url
+                        // click_url：商品页url
+                        return coupon_click_url == null ? click_url : coupon_click_url;
                     }
 
                     public void setTitle(String title) {

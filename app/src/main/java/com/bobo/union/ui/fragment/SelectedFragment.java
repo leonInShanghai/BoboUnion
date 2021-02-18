@@ -4,7 +4,10 @@ package com.bobo.union.ui.fragment;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +25,7 @@ import com.bobo.union.ui.adapter.SelectedPageLeftAdapter;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.PresenterManager;
 import com.bobo.union.utils.SizeUtils;
+import com.bobo.union.utils.TicketUtil;
 import com.bobo.union.view.ISelectedPageCallbacck;
 
 import java.util.List;
@@ -44,6 +48,14 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     private ISelectedPagePresenter mSelectedPagePresenter;
     private SelectedPageLeftAdapter mLeftAdapter;
     private SelectedPageContentAdapter mRightAdapter;
+
+    @BindView(R.id.fragment_bar_title_tv)
+    public TextView barTitleTv;
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater,ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_with_bar_layout, container, false);
+    }
 
     @Override
     protected void initPresenter() {
@@ -104,6 +116,9 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
                 outRect.right = leftAndRight;
             }
         });
+
+        // 设置标题
+        barTitleTv.setText(getResources().getText(R.string.text_selected_title));
     }
 
     @Override
@@ -179,17 +194,19 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     @Override
     public void onContentItemClick(SelectedContent.DataBean.TbkUatmFavoritesItemGetResponseBean.result_listBean.
                                                UatmTbkItemBean item) {
-        // 右边的内容item被点击后跳转到淘口令界面
-        String title = item.getTitle();
-        String url = item.getCoupon_click_url();
-        if (TextUtils.isEmpty(url)) {
-            // 详情的url
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        // 拿到TicketPressenter去加载数据
-        ITikcetPresenter ticketPressenter = PresenterManager.getInstance().getTicketPressenter();
-        ticketPressenter.getTicket(title, url, cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+        // // 右边的内容item被点击后跳转到淘口令界面
+        // String title = item.getTitle();
+        // String url = item.getCoupon_click_url();
+        // if (TextUtils.isEmpty(url)) {
+        //     // 详情的url
+        //     url = item.getClick_url();
+        // }
+        // String cover = item.getPict_url();
+        // // 拿到TicketPressenter去加载数据
+        // ITikcetPresenter ticketPressenter = PresenterManager.getInstance().getTicketPressenter();
+        // ticketPressenter.getTicket(title, url, cover);
+        // startActivity(new Intent(getContext(), TicketActivity.class));
+
+        TicketUtil.toTicketPage(getContext(), item);
     }
 }

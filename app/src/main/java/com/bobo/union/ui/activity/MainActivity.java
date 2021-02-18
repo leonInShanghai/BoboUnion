@@ -1,6 +1,5 @@
 package com.bobo.union.ui.activity;
 
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,15 +10,13 @@ import com.bobo.union.R;
 import com.bobo.union.base.BaseActivity;
 import com.bobo.union.base.BaseFragment;
 import com.bobo.union.ui.fragment.HomeFragment;
-import com.bobo.union.ui.fragment.RedPacketFragment;
+import com.bobo.union.ui.fragment.OnSellFragment;
 import com.bobo.union.ui.fragment.SearchFragment;
 import com.bobo.union.ui.fragment.SelectedFragment;
 import com.bobo.union.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -34,7 +31,7 @@ public class MainActivity extends BaseActivity {
     // 各个页面碎片
     private HomeFragment mHomeFragment;
     private SelectedFragment mSelectedFragment;
-    private RedPacketFragment mRedPacketFragment;
+    private OnSellFragment mRedPacketFragment;
     private SearchFragment mSearchFragment;
 
     // 切换fragment时的管理者
@@ -81,7 +78,7 @@ public class MainActivity extends BaseActivity {
         mSelectedFragment = new SelectedFragment();
         
         // 特惠
-        mRedPacketFragment = new RedPacketFragment();
+        mRedPacketFragment = new OnSellFragment();
         
         // 搜索
         mSearchFragment = new SearchFragment();

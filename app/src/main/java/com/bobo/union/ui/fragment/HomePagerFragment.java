@@ -28,6 +28,7 @@ import com.bobo.union.ui.adapter.HomePagerContentAdapter;
 import com.bobo.union.ui.adapter.LooperPagerAdapter;
 import com.bobo.union.ui.custom.AutoLoopViewPager;
 import com.bobo.union.utils.PresenterManager;
+import com.bobo.union.utils.TicketUtil;
 import com.lcodecore.tkrefreshlayout.views.TbNestedScrollView;
 import com.bobo.union.utils.Constants;
 import com.bobo.union.utils.LogUtils;
@@ -435,17 +436,19 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     // 跳转到口令页面
     private void handleItemClick(HomePagerContent.DataBean item) {
-        String title = item.getTitle();
-        String url = item.getCoupon_click_url();
-        if (TextUtils.isEmpty(url)) {
-            // 详情的url
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        // 拿到TicketPressenter去加载数据
-        ITikcetPresenter ticketPressenter = PresenterManager.getInstance().getTicketPressenter();
-        ticketPressenter.getTicket(title, url, cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+        // String title = item.getTitle();
+        // String url = item.getCoupon_click_url();
+        // if (TextUtils.isEmpty(url)) {
+        //     // 详情的url
+        //     url = item.getClick_url();
+        // }
+        // String cover = item.getPict_url();
+        // // 拿到TicketPressenter去加载数据
+        // ITikcetPresenter ticketPressenter = PresenterManager.getInstance().getTicketPressenter();
+        // ticketPressenter.getTicket(title, url, cover);
+        // startActivity(new Intent(getContext(), TicketActivity.class));
+
+        TicketUtil.toTicketPage(getContext(), item);
     }
 
     /**
