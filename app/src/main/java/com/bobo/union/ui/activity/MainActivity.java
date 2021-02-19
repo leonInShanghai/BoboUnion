@@ -152,6 +152,12 @@ public class MainActivity extends BaseActivity {
     // 首页 精选 特惠 搜索 切换业务逻辑
     private void switchFragment(BaseFragment targetFragment) {
 
+        // 如果上一个fragment跟当前要切换的fragment是同一个，那么不需要切换
+        if(lastOneFragment == targetFragment) {
+            LogUtils.d(this,"lastOneFragment == targetFragment");
+            return;
+        }
+
         // 开启事物
         FragmentTransaction fragmentTransaction = mFM.beginTransaction();
 
@@ -161,13 +167,16 @@ public class MainActivity extends BaseActivity {
         if (!targetFragment.isAdded()) {
             // 如果没有被添加过才能添加
             fragmentTransaction.add(R.id.main_page_connecter, targetFragment);
+            LogUtils.d(this,"add: " + targetFragment.getClass().getSimpleName());
         } else {
             // 如果被添加过则显示
             fragmentTransaction.show(targetFragment);
+            LogUtils.d(this,"show: " + targetFragment.getClass().getSimpleName());
         }
         if (lastOneFragment != null) {
             // 上一个fragment不为空时要隐藏
             fragmentTransaction.hide(lastOneFragment);
+            LogUtils.d(this,"hide: " + lastOneFragment.getClass().getSimpleName());
         }
         lastOneFragment = targetFragment;
 

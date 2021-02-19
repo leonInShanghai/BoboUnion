@@ -1,6 +1,7 @@
 package com.bobo.union.view;
 
 import com.bobo.union.base.IBaseCallback;
+import com.bobo.union.model.doman.SearchRecommend;
 import com.bobo.union.model.doman.SearchResult;
 
 import java.util.List;
@@ -48,5 +49,5 @@ public interface ISearchViewCallback extends IBaseCallback {
      * 推荐词获取结果
      * @param recommendWords
      */
-    void onRecommendWordsLoaded(List<String> recommendWords);
+    void onRecommendWordsLoaded(List<SearchRecommend.DataBean > recommendWords);
 }

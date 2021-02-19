@@ -3,6 +3,8 @@ package com.bobo.union.model;
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.model.doman.HomePagerContent;
 import com.bobo.union.model.doman.OnSellContent;
+import com.bobo.union.model.doman.SearchRecommend;
+import com.bobo.union.model.doman.SearchResult;
 import com.bobo.union.model.doman.SelectedContent;
 import com.bobo.union.model.doman.SelectedPageCategory;
 import com.bobo.union.model.doman.TicketParams;
@@ -39,6 +41,12 @@ public interface Api {
 
     @GET
     Call<OnSellContent> getOnSellPageContent(@Url String url);
+
+    @GET("search/recommend")
+    Call<SearchRecommend> getRecommendWords();
+
+    @GET("search")
+    Call<SearchResult> doSourch(@Query("page") int page, @Query("keyword") String keyword);
 }
 
 
