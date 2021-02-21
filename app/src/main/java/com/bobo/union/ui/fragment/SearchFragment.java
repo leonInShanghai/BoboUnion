@@ -1,6 +1,8 @@
 package com.bobo.union.ui.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.bobo.union.R;
 import com.bobo.union.base.BaseFragment;
@@ -10,6 +12,11 @@ import com.bobo.union.base.BaseFragment;
  * Functions:
  */
 public class SearchFragment extends BaseFragment {
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_search_layout, container, false);
+    }
 
     @Override
     protected int getRootViewResId() {
