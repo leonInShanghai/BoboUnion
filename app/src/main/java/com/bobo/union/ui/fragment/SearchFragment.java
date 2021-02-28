@@ -137,7 +137,6 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
             }
             mRecomendView.setTextList(recommendKeywords);
         }
-
     }
 
     @Override
