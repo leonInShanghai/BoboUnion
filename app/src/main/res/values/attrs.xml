@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 声明XML自定义属性(AutoLoopViewPager) -->
+    <declare-styleable name="AutoLooperStyle">
+        <attr name="duration" format="integer"/>
+    </declare-styleable>
+
+    <!-- 自定义控件TextFlowLayout的属性 -->
+    <declare-styleable name="FlowTextStyle">
+        <attr name="horizontalSpace" format="dimension"/>
+        <attr name="verticalSpace" format="dimension"/>
+    </declare-styleable>
+
+</resources>

@@ -14,4 +14,5 @@
     <string name="text_loading_tips">波波加载中...</string>
     <string name="text_selected_title">精选宝贝</string>
     <string name="text_on_sell_title">特惠宝贝</string>
+    <string name="text_search_history">搜索历史</string>
 </resources>

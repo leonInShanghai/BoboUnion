@@ -61,8 +61,7 @@ public class SearchPresenterImpl implements ISearchPresenter {
     @Override
     public void getHistories() {
         Histories histories = mJsonCacheUtil.getValue(KEY_HISTORY, Histories.class);
-        if (mSearchViewCallback != null && histories != null && histories.getHistories() != null
-                && histories.getHistories().size() > 0) {
+        if (mSearchViewCallback != null) {
             // 回调到UI
             mSearchViewCallback.onHistoriesLoaded(histories.getHistories());
         }
@@ -115,7 +114,7 @@ public class SearchPresenterImpl implements ISearchPresenter {
         historiesList.add(history);
 
         // 保存记录
-        mJsonCacheUtil.saveCache(KEY_HISTORY, historiesList);
+        mJsonCacheUtil.saveCache(KEY_HISTORY, histories);
     }
 
     @Override
@@ -297,7 +296,11 @@ public class SearchPresenterImpl implements ISearchPresenter {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     // 处理结果(注意这里不存在失败回调，失败UI那边就啥也不用做)
                     if (mSearchViewCallback != null) {
-                        mSearchViewCallback.onRecommendWordsLoaded(response.body().getData());
+                        if (response.body() == null) {
+                            mSearchViewCallback.onRecommendWordsLoaded(null);
+                        } else {
+                            mSearchViewCallback.onRecommendWordsLoaded(response.body().getData());
+                        }
                     }
                 }
             }

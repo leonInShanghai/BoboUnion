@@ -85,6 +85,7 @@ public class JsonCacheUtil {
         } else {
            // 没有过期或没有时间限制
            String cache = cacheWithDuration.getCahce();
+           LogUtils.d(this, cache);
            return mGson.fromJson(cache, clazz);
         }
     }

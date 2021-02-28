@@ -10,8 +10,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bobo.union.R;
+import com.bobo.union.ui.custom.TextFlowLayout;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,15 +30,35 @@ public class TestActivity extends AppCompatActivity {
     @BindView(R.id.test_navigation_bar)
     RadioGroup navigationBar;
 
+    @BindView(R.id.test_flow_layout)
+    TextFlowLayout flowLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
-
-
         initListener();
+
+        List<String> textList = new ArrayList<>();
+        textList.add("肥仔快乐水");
+        textList.add("肥仔快乐水");
+        textList.add("肥仔快乐水");
+        textList.add("电脑");
+        textList.add("机械键盘");
+        textList.add("滑板鞋");
+        textList.add("运动鞋");
+        textList.add("肥仔快乐水");
+        textList.add("阳光沙滩");
+        textList.add("Android 编程");
+        textList.add("JavaWeb后台");
+        flowLayout.setTextList(textList);
+        flowLayout.setOnFlowTextItemClickListener(new TextFlowLayout.OnFlowTextItemClickListener() {
+            @Override
+            public void onFlowItemClick(String text) {
+                LogUtils.d(TestActivity.this, " click text --> " + text);
+            }
+        });
     }
 
     /**

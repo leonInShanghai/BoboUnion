@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#EFEEEEEE"
     tools:context=".ui.activity.TestActivity">
 
     <!-- 测试用的button -->
@@ -19,8 +19,17 @@
     <!-- 测试用 -->
     <com.bobo.union.ui.custom.LoadingView
         android:layout_below="@+id/test_toast_btn"
+        android:id="@+id/test_loading"
         android:layout_width="33dp"
         android:layout_height="33dp"/>
+
+    <com.bobo.union.ui.custom.TextFlowLayout
+        android:id="@+id/test_flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_loading"
+        app:horizontalSpace="20px"
+        app:verticalSpace="20px"/>
 
     <RadioGroup
         android:id="@+id/test_navigation_bar"
