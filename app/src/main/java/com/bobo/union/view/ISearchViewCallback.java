@@ -1,6 +1,7 @@
 package com.bobo.union.view;
 
 import com.bobo.union.base.IBaseCallback;
+import com.bobo.union.model.doman.Histories;
 import com.bobo.union.model.doman.SearchRecommend;
 import com.bobo.union.model.doman.SearchResult;
 
@@ -16,7 +17,7 @@ public interface ISearchViewCallback extends IBaseCallback {
      * 搜索历史结果返回（在本地不存在失败的情况）
      * @param histories
      */
-    void onHistoriesLoaded(List<String> histories);
+    void onHistoriesLoaded(Histories histories);
 
     /**
      * 历史记录删除完成

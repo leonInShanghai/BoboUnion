@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/goods_cover"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/goods_title"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            tools:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/goods_off_price"
+            android:background="@drawable/shape_tag_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            tools:text="省15元"
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                android:text="券后价："/>
+
+            <!-- 优惠后的价格 -->
+            <TextView
+                android:id="@+id/goods_after_off_price"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                tools:text="19.80"/>
+
+            <!-- 原价 -->
+            <TextView
+                android:id="@+id/goods_orignal_price"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorGrey"
+                android:layout_height="wrap_content"
+                tools:text="￥23"
+                android:textSize="12sp"/>
+
+            <!-- android:textSize="12sp" 自增 -->
+            <TextView
+                android:id="@+id/goods_sell_count"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorGrey"
+                android:layout_height="wrap_content"
+                tools:text="1000人已经购买"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

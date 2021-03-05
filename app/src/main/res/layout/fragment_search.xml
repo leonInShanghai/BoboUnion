@@ -24,6 +24,7 @@
                 android:text="@string/text_search_history"/>
 
             <ImageView
+                android:id="@+id/search_history_deleate"
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
@@ -72,6 +73,10 @@
     </LinearLayout>
 
     <!-- 搜索结果 -->
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_result_list"
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -241,8 +241,8 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull
                     RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = 8;
-                outRect.bottom = 8;
+                outRect.top = SizeUtils.dip2px(getContext(), 1.5f);;
+                outRect.bottom = SizeUtils.dip2px(getContext(), 1.5f);;
             }
 
         });

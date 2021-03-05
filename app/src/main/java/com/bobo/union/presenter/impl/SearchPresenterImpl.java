@@ -63,7 +63,7 @@ public class SearchPresenterImpl implements ISearchPresenter {
         Histories histories = mJsonCacheUtil.getValue(KEY_HISTORY, Histories.class);
         if (mSearchViewCallback != null) {
             // 回调到UI
-            mSearchViewCallback.onHistoriesLoaded(histories.getHistories());
+            mSearchViewCallback.onHistoriesLoaded(histories);
         }
     }
 
@@ -73,8 +73,10 @@ public class SearchPresenterImpl implements ISearchPresenter {
     @Override
     public void delHistories() {
         mJsonCacheUtil.delCache(KEY_HISTORY);
-
-        // TODO:删除后回调到UI
+        // 删除后回调到UI
+        if (mSearchViewCallback != null) {
+            mSearchViewCallback.onHistoriesDeleted();
+        }
     }
 
     /**
