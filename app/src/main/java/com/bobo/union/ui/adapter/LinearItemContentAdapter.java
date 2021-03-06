@@ -2,7 +2,7 @@ package com.bobo.union.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bobo.union.R;
-import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.model.doman.ILinearItemInfo;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.UrlUtils;
 import com.bumptech.glide.Glide;
@@ -26,11 +26,11 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Leon on 2021-01-02 Copyright © Leon. All rights reserved.
- * Functions:
+ * Functions: 首页 和 搜索页 共用适配器
  */
-public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
+public class LinearItemContentAdapter extends RecyclerView.Adapter<LinearItemContentAdapter.InnerHolder> {
 
-    private List<HomePagerContent.DataBean> mData = new ArrayList<>();
+    private List<ILinearItemInfo> mData = new ArrayList<>();
 
     // 测试用
     private int testCount = 1;
@@ -53,7 +53,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         // 绑定数据可以一直调用 item要回收使用
         LogUtils.d(this, "onBindViewHolder... " + position);
-        HomePagerContent.DataBean dataBean = mData.get(position);
+        ILinearItemInfo dataBean = mData.get(position);
         // 设置（绑定）数据
         holder.setData(dataBean);
 
@@ -76,7 +76,8 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
         return mData == null ? 0 : mData.size();
     }
 
-    public void setData(List<HomePagerContent.DataBean> contents) {
+    // public void setData(List<HomePagerContent.DataBean> contents) {
+    public void setData(List<? extends ILinearItemInfo> contents) {
         // 先清除原来的数据
         if (mData.size() > 0) {
             mData.clear();
@@ -91,7 +92,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      * 上拉加载更多成功后添加到底部数据
      * @param contents
      */
-    public void addData(List<HomePagerContent.DataBean> contents) {
+    public void addData(List<? extends ILinearItemInfo> contents) {
         // 添加数据之前拿到原来的size为接下来的局部刷新做准备
         int oldSize = mData.size();
         mData.addAll(contents);
@@ -132,7 +133,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             ButterKnife.bind(this, itemView);
         }
 
-        public void setData(HomePagerContent.DataBean dataBean) {
+        public void setData(ILinearItemInfo dataBean) {
             Context context = itemView.getContext();
             // LogUtils.d(this, "url -- > " + dataBean.getPict_url());
 
@@ -145,16 +146,18 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             //         " height --> " + height);
             // String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), coverSize);
             // 动态计算出105请求不到图片直接写100
-            String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), 100);
-            // LogUtils.d(HomePagerContentAdapter.this, "coverPath --> " + coverPath);
-            Glide.with(context).load(coverPath)
-                    .placeholder(R.mipmap.bobo_launch).into(cover);
-
+            // String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), 100);
+            if (!TextUtils.isEmpty(dataBean.getCover())) {
+                String coverPath = UrlUtils.getCoverPath(dataBean.getCover(), 100);
+                // LogUtils.d(HomePagerContentAdapter.this, "coverPath --> " + coverPath);
+                Glide.with(context).load(coverPath)
+                        .placeholder(R.mipmap.bobo_launch).into(cover);
+            }
             // 设置右上商品标题
             title.setText(dataBean.getTitle());
-            String finalPrice = dataBean.getZk_final_price();
+            String finalPrice = dataBean.getFinalPrice();
             // LogUtils.d(this, "finalPrice --> " + finalPrice);
-            long couponAmount = dataBean.getCoupon_amount();
+            long couponAmount = dataBean.getCouponAmount();
             // LogUtils.d(this, "省 * 元 --> " + couponAmount);
             // 原价 - 优惠价格 = 券后价
             float resultPrice = Float.parseFloat(finalPrice) - couponAmount;
@@ -190,6 +193,6 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      * 传递点击事件的接口
      */
     public interface OnListItemClickListener {
-        void onItemClick(HomePagerContent.DataBean item);
+        void onItemClick(ILinearItemInfo item);
     }
 }

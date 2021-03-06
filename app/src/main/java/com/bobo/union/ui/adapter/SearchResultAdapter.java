@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by 公众号：IT波 on 2021/3/5 Copyright © Leon. All rights reserved.
- * Functions: 搜索页 搜索结果recyclerview 适配器
+ * Functions: 搜索页 搜索结果recyclerview 适配器 后面 首页兼容 这里没有用到了
  */
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.InnerHolder> {
 

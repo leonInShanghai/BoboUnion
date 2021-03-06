@@ -14,14 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bobo.union.R;
 import com.bobo.union.base.BaseFragment;
 import com.bobo.union.model.doman.Histories;
+import com.bobo.union.model.doman.ILinearItemInfo;
 import com.bobo.union.model.doman.SearchRecommend;
 import com.bobo.union.model.doman.SearchResult;
 import com.bobo.union.presenter.ISearchPresenter;
-import com.bobo.union.ui.adapter.SearchResultAdapter;
+import com.bobo.union.ui.adapter.LinearItemContentAdapter;
 import com.bobo.union.ui.custom.TextFlowLayout;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.PresenterManager;
 import com.bobo.union.utils.SizeUtils;
+import com.bobo.union.utils.ToastUtil;
 import com.bobo.union.view.ISearchViewCallback;
 
 import java.util.ArrayList;
@@ -57,7 +59,8 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
     private ISearchPresenter mSearchPresenter;
 
     // 搜索结果适配器
-    private SearchResultAdapter mSearchResultAdapter;
+    // private SearchResultAdapter mSearchResultAdapter; 2021-03-06后 和首页公用HomePagerContentAdapter
+    private LinearItemContentAdapter mSearchResultAdapter;
 
     @Override
     protected void initPresenter() {
@@ -103,7 +106,8 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
         // 设置布局管理器
         mSearchList.setLayoutManager(new LinearLayoutManager(getContext()));
         // 设置适配器
-        mSearchResultAdapter = new SearchResultAdapter();
+        // mSearchResultAdapter = new SearchResultAdapter(); 2021-03-06后 和首页公用HomePagerContentAdapter
+        mSearchResultAdapter = new LinearItemContentAdapter();
         mSearchList.setAdapter(mSearchResultAdapter);
     }
 
@@ -147,7 +151,14 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
         // 显示搜索结果
         mSearchList.setVisibility(View.VISIBLE);
         // 给适配器设置数据
-        mSearchResultAdapter.setData(result);
+        try {
+            // 再添加新数据
+            List<? extends ILinearItemInfo> mapData = result.getData().getTbk_dg_material_optional_response().getResult_list()
+                    .getMap_data();
+            mSearchResultAdapter.setData(mapData);
+        } catch (NullPointerException e) {
+            ToastUtil.showToast("服务器数据解析异常!");
+        }
         // 设置item的间距
         mSearchList.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override

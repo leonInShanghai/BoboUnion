@@ -72,11 +72,18 @@
 
     </LinearLayout>
 
-    <!-- 搜索结果 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_result_list"
-        android:overScrollMode="never"
+    <!-- 下拉刷新上拉加载更多控件 -->
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <!-- 搜索结果 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_result_list"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 </LinearLayout>

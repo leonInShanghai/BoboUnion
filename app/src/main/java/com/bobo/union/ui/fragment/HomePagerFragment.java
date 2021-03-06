@@ -1,9 +1,7 @@
 package com.bobo.union.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -19,12 +17,9 @@ import com.bobo.union.base.BaseFragment;
 import com.bobo.union.R;
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.model.doman.HomePagerContent;
+import com.bobo.union.model.doman.ILinearItemInfo;
 import com.bobo.union.presenter.ICategoryPagerPresenter;
-import com.bobo.union.presenter.ITikcetPresenter;
-import com.bobo.union.presenter.impl.CategoryPagePresenterImpl;
-import com.bobo.union.presenter.impl.TicketPressenterImpl;
-import com.bobo.union.ui.activity.TicketActivity;
-import com.bobo.union.ui.adapter.HomePagerContentAdapter;
+import com.bobo.union.ui.adapter.LinearItemContentAdapter;
 import com.bobo.union.ui.adapter.LooperPagerAdapter;
 import com.bobo.union.ui.custom.AutoLoopViewPager;
 import com.bobo.union.utils.PresenterManager;
@@ -55,7 +50,7 @@ import butterknife.BindView;
  * look there is a prince, he is singing
  * look there is a girl, she is dancing
  */
-public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback, HomePagerContentAdapter
+public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback, LinearItemContentAdapter
         .OnListItemClickListener, LooperPagerAdapter.OnLooperPagerItemClickListener {
 
     // 这个页面的presenter
@@ -90,7 +85,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public TbNestedScrollView homePagerNestedView;
 
     // 展示内容的循环视图的适配器
-    private HomePagerContentAdapter mContentAdapter;
+    private LinearItemContentAdapter mContentAdapter;
 
     // 展示轮播图的viewPager的适配器
     private LooperPagerAdapter mLooperPagerAdapter;
@@ -248,7 +243,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         });
 
         // 创建适配器
-        mContentAdapter = new HomePagerContentAdapter();
+        mContentAdapter = new LinearItemContentAdapter();
 
         // 设置适配器
         mConnectList.setAdapter(mContentAdapter);
@@ -302,11 +297,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     public void onContentLoaded(List<HomePagerContent.DataBean> contents) {
-
         // 正常数据列表加载成功
         mContentAdapter.setData(contents);
         setUpState(State.SUCCESS);
-
     }
 
     @Override
@@ -428,14 +421,14 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
      * @param item
      */
     @Override
-    public void onItemClick(HomePagerContent.DataBean item) {
+    public void onItemClick(ILinearItemInfo item) {
         // 列表内容被点击了
         LogUtils.d(this, "item click --> " + item.getTitle());
         handleItemClick(item);
     }
 
     // 跳转到口令页面
-    private void handleItemClick(HomePagerContent.DataBean item) {
+    private void handleItemClick(ILinearItemInfo item) {
         // String title = item.getTitle();
         // String url = item.getCoupon_click_url();
         // if (TextUtils.isEmpty(url)) {
