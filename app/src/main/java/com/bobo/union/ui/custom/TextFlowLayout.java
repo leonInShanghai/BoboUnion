@@ -12,6 +12,7 @@ import com.bobo.union.R;
 import com.bobo.union.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class TextFlowLayout extends ViewGroup {
     private float mItemVerticalSpace = DEFAULT_SPACE;
 
     // 数据源
-    private List<String> mTextList;
+    private List<String> mTextList = new ArrayList<>();
 
     // 这个是描述所有的行
     private List<List<View>> lines = new ArrayList<>();
@@ -74,12 +75,30 @@ public class TextFlowLayout extends ViewGroup {
     }
 
     /**
+     * 返回数据源的集合size
+     * @return
+     */
+    public int getContentSize() {
+        return mTextList == null ? 0 : mTextList.size();
+    }
+
+    /**
      * 供外界设置数据源的方法
      * @param textList
      */
     public void setTextList(List<String> textList) {
-        mTextList = textList;
-        // 遍历mTextList内容
+        // 先移除之前的所有子view
+        removeAllViews();
+        // 先清除避免重复添加
+        mTextList.clear();
+        // 数据源可以为null
+        if (textList == null) {
+            return;
+        }
+        mTextList.addAll(textList);
+        // 发转集合后搜索的放前面方便用户查看
+        Collections.reverse(mTextList);
+        // 遍历mTextList内容再创建
         for (String text : mTextList) {
             // 根据数据源添加子view root:此时要填写this attachToRoot:true表示将layout布局添加到root布局中
             // LayoutInflater.from(getContext()).inflate(R.layout.flow_text, this, true);
@@ -97,6 +116,7 @@ public class TextFlowLayout extends ViewGroup {
                     }
                 }
             });
+
             addView(item);
         }
     }

@@ -29,6 +29,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/home_search_input_box"
             android:layout_width="match_parent"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

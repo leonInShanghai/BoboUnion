@@ -168,7 +168,8 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             public void onClick(View view) {
                 int measuredHeight = mConnectList.getMeasuredHeight();
                 int height = mConnectList.getHeight();
-                LogUtils.d(HomePagerFragment.this, "measuredHeight --> " + measuredHeight + " height --> " + height);
+                LogUtils.d(HomePagerFragment.this, "measuredHeight --> " + measuredHeight + " height --> "
+                        + height);
                 // 优化前recyclerView的高度：measuredHeight --> 12598
             }
         });
@@ -309,7 +310,6 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     public void onLoading() {
-
         // 加载中
         setUpState(State.LOADING);
     }

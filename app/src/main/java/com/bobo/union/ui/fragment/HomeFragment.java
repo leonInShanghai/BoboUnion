@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bobo.union.R;
@@ -14,6 +16,7 @@ import com.bobo.union.base.BaseFragment;
 import com.bobo.union.model.doman.Categories;
 import com.bobo.union.presenter.IHomePresenter;
 import com.bobo.union.presenter.impl.HomePresenterImpl;
+import com.bobo.union.ui.activity.MainActivity;
 import com.bobo.union.ui.adapter.HomePagerAdapter;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.PresenterManager;
@@ -39,6 +42,10 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     // 顶部导航栏最下面的指示器切换时的viewpager
     @BindView(R.id.home_pager)
     ViewPager homePager;
+
+    // 顶部的输入框
+    @BindView(R.id.home_search_input_box)
+    EditText mSearchInputBox;
 
     // 指示器切换时的viewpager 的适配器
     private HomePagerAdapter mHomePagerAdapter;
@@ -83,6 +90,17 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
         // 注册回调接口
         mHomePresenter.registerViewCallback(this);
+    }
+
+    @Override
+    protected void initListener() {
+        // 当用户点击顶部搜索框跳转到搜索页面
+        mSearchInputBox.setOnClickListener(view -> {
+            FragmentActivity activity = getActivity();
+            if (activity != null && activity instanceof MainActivity) {
+                ((MainActivity)activity).switch2Search();
+            }
+        });
     }
 
     @Override

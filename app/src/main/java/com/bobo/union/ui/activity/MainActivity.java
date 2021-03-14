@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bobo.union.R;
 import com.bobo.union.base.BaseActivity;
 import com.bobo.union.base.BaseFragment;
+import com.bobo.union.ui.Inter.IMainActivity;
 import com.bobo.union.ui.fragment.HomeFragment;
 import com.bobo.union.ui.fragment.OnSellFragment;
 import com.bobo.union.ui.fragment.SearchFragment;
@@ -23,7 +24,7 @@ import butterknife.BindView;
  * Created by Leon on 2020-08-15 Copyright © Leon. All rights reserved.
  * Functions: 首页
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IMainActivity {
 
     @BindView(R.id.main_navation_bar)
     BottomNavigationView mNavigationView;
@@ -52,6 +53,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initPresenter() {
 
+    }
+
+    /**
+     * 跳转到搜索界面
+     */
+    public void switch2Search() {
+        // switchFragment(mSearchFragment);
+        mNavigationView.setSelectedItemId(R.id.search);
     }
 
     @Override
@@ -158,7 +167,6 @@ public class MainActivity extends BaseActivity {
         mNavigationView.setSelectedItemId(R.id.home);
     }
 
-    
     // 首页 精选 特惠 搜索 切换业务逻辑 (切换Fragmengt的方法源代码 总感觉这种方式没有view pager 靠谱)
     private void switchFragment(BaseFragment targetFragment) {
 
@@ -193,7 +201,6 @@ public class MainActivity extends BaseActivity {
         // 一定要提交事物
         fragmentTransaction.commit();
     }
-    
 }
 
 

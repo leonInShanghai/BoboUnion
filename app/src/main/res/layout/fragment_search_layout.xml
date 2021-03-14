@@ -10,29 +10,47 @@
         android:background="@color/colorPrimary">
 
         <TextView
-            android:id="@+id/no_search_btn"
+            android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:paddingLeft="20dp"
-            android:paddingRight="10dp"
+            android:paddingRight="20dp"
             android:gravity="center"
             android:text="取消"
             android:textColor="@color/white"/>
 
-        <!-- toLeftOf:在...的左边 -->
+        <!-- toLeftOf:在...的左边
+             android:singleLine="true" 代替方法下面的两句
+             android:lines="1"
+             android:ellipsize="end"-->
         <EditText
+            android:id="@+id/search_input_box"
             android:layout_width="match_parent"
             android:paddingLeft="20dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
             android:layout_height="30dp"
             android:textSize="14sp"
             android:layout_centerVertical="true"
+            android:focusable="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/no_search_btn"
+            android:layout_toLeftOf="@+id/search_btn"
             android:hint="@string/text_search_tips"
             android:background="@drawable/shape_edit_box_bg" />
+
+        <ImageView
+            android:id="@+id/search_clean_btn"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/search_btn"
+            android:layout_marginRight="18dp"
+            android:src="@mipmap/remove"
+            android:layout_width="18dp"
+            android:layout_height="18dp"/>
 
     </RelativeLayout>
 

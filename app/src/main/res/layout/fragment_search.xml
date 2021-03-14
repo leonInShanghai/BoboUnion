@@ -74,6 +74,8 @@
 
     <!-- 下拉刷新上拉加载更多控件 -->
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:visibility="gone"
+        android:id="@+id/search_result_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

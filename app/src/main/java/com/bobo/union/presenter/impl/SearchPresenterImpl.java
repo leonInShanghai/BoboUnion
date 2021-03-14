@@ -127,6 +127,8 @@ public class SearchPresenterImpl implements ISearchPresenter {
             this.saveHistories(keyword);
             // mCurrentKeyWord赋值用作从新搜索
             mCurrentKeyWord = keyword;
+            // FIXME:用户重新搜索的关键字此时要从第0页开始
+            mCurrentPage = DEFFAULT_PAGE;
         }
 
         // 更新UI状态-loading...
@@ -193,6 +195,10 @@ public class SearchPresenterImpl implements ISearchPresenter {
         }
     }
 
+    /**
+     * 当加载失败 用户点击了重新搜索
+     * 重新搜索
+     */
     @Override
     public void research() {
         // 没有关键词
@@ -220,6 +226,8 @@ public class SearchPresenterImpl implements ISearchPresenter {
             if (mSearchViewCallback != null) {
                 // 没有关键词-就没有搜索结果
                 mSearchViewCallback.onEmpty();
+                // FIXME:要减回来
+                mCurrentPage--;
             }
         } else {
             // （分页增加后）开始搜索
