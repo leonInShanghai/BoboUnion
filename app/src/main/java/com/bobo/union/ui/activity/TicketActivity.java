@@ -148,6 +148,7 @@ public class TicketActivity extends BaseActivity implements ITicketPagerCallback
     @Override
     public void onTicketLoaded(String cover, TicketResult result) {
 
+        // 设置图片
         if (mCover != null && !TextUtils.isEmpty(cover)) {
             mCover.setVisibility(View.VISIBLE);
             ViewGroup.LayoutParams layoutParams = mCover.getLayoutParams();
@@ -156,8 +157,14 @@ public class TicketActivity extends BaseActivity implements ITicketPagerCallback
             LogUtils.d(this, "cover width --> " + width + " cover height --> " + height);
             String coverPath = UrlUtils.getCoverPath(cover, 300);
             Glide.with(this).load(coverPath).placeholder(R.mipmap.bobo_launch).into(mCover);
+        } else {
+            if (mCover != null) {
+                mCover.setVisibility(View.VISIBLE);
+                mCover.setImageResource(R.mipmap.no_image);
+            }
         }
 
+        // 设置淘口令
         if (result != null && result.getData().getTbk_tpwd_create_response() != null) {
             mTicketCode.setText(result.getData().getTbk_tpwd_create_response().getData().getModel());
         }

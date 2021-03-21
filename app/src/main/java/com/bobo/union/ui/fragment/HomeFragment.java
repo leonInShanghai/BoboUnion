@@ -1,10 +1,12 @@
 package com.bobo.union.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +19,13 @@ import com.bobo.union.model.doman.Categories;
 import com.bobo.union.presenter.IHomePresenter;
 import com.bobo.union.presenter.impl.HomePresenterImpl;
 import com.bobo.union.ui.activity.MainActivity;
+import com.bobo.union.ui.activity.SacnQrCideActivity;
 import com.bobo.union.ui.adapter.HomePagerAdapter;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.PresenterManager;
 import com.bobo.union.view.IHomeCallback;
 import com.google.android.material.tabs.TabLayout;
+import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import butterknife.BindView;
 
@@ -43,12 +47,25 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     @BindView(R.id.home_pager)
     ViewPager homePager;
 
+    // 扫码按钮
+    @BindView(R.id.scan_icon)
+    ImageView scanBtn;
+
     // 顶部的输入框
     @BindView(R.id.home_search_input_box)
     EditText mSearchInputBox;
 
     // 指示器切换时的viewpager 的适配器
     private HomePagerAdapter mHomePagerAdapter;
+
+    // 确保用户不会重复点击重复开启多次扫描页
+    private boolean isScanBtnClick = true;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isScanBtnClick = true;
+    }
 
     @Override
     protected int getRootViewResId() {
@@ -84,16 +101,16 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     }
 
     @Override
-    protected void initPresenter() {
-        // 实例化自己的prestenter
-        mHomePresenter = PresenterManager.getInstance().getHomePresenter();
-
-        // 注册回调接口
-        mHomePresenter.registerViewCallback(this);
-    }
-
-    @Override
     protected void initListener() {
+        scanBtn.setOnClickListener(view -> {
+            // 确保用户不会重复点击重复开启多次扫描页
+            if (isScanBtnClick) {
+                isScanBtnClick = false;
+                // 跳转到扫描页面
+                startActivity(new Intent(getContext(), SacnQrCideActivity.class));
+            }
+        });
+
         // 当用户点击顶部搜索框跳转到搜索页面
         mSearchInputBox.setOnClickListener(view -> {
             FragmentActivity activity = getActivity();
@@ -101,6 +118,15 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
                 ((MainActivity)activity).switch2Search();
             }
         });
+    }
+
+    @Override
+    protected void initPresenter() {
+        // 实例化自己的prestenter
+        mHomePresenter = PresenterManager.getInstance().getHomePresenter();
+
+        // 注册回调接口
+        mHomePresenter.registerViewCallback(this);
     }
 
     @Override

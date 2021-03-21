@@ -1,9 +1,14 @@
 package com.bobo.union.base;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.XmlRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -22,6 +27,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+
+        // 清明节 9.18app置灰
+        // ColorMatrix cm = new ColorMatrix();
+        // cm.setSaturation(0);
+        // Paint paint = new Paint();
+        // paint.setColorFilter(new ColorMatrixColorFilter(cm));
+        // // View contentContaoner = findViewById(android.R.id.content);
+        // View contentContaoner = getWindow().peekDecorView();
+        // contentContaoner.setLayerType(View.LAYER_TYPE_SOFTWARE, paint);
+
         // 使用butterKnie实例化控件
         mBind = ButterKnife.bind(this);
 

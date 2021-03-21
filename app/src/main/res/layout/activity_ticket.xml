@@ -35,13 +35,13 @@
         android:layout_height="300dp">
 
         <!-- android:src="@mipmap/bobo_launch"
-         android:visibility="gone"自己增加 -->
+             android:visibility="gone"自己增加
+             android:background="@color/gray"-->
         <ImageView
             android:id="@+id/ticket_cover"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/gray"/>
+            android:layout_height="match_parent"/>
 
         <!--  android:layout_width="33dp" -->
         <com.bobo.union.ui.custom.LoadingView

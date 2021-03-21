@@ -104,6 +104,8 @@ public class TicketPressenterImpl implements ITikcetPresenter {
     @Override
     public void registerViewCallback(ITicketPagerCallback callback) {
 
+        this.mViewCallback = callback;
+
         if (mCurrentStatus != LoadState.NONE) {
             // 说明加载状态已经在Activity跳转前改变了
             // 更新UI
@@ -115,8 +117,6 @@ public class TicketPressenterImpl implements ITikcetPresenter {
                 onTicketLoadedLoading();
             }
         }
-
-        this.mViewCallback = callback;
     }
 
     private void onTicketLoadedLoading() {

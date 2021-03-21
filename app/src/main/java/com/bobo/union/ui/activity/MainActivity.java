@@ -16,6 +16,7 @@ import com.bobo.union.ui.fragment.SearchFragment;
 import com.bobo.union.ui.fragment.SelectedFragment;
 import com.bobo.union.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import butterknife.BindView;
 
