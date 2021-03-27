@@ -4,13 +4,13 @@ package com.bobo.union.ui.custom;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bobo.union.R;
-import com.bobo.union.utils.LogUtils;
 
 /**
  * Created by 公众号：IT波 on 2021/1/16 Copyright © Leon. All rights reserved.
@@ -38,6 +38,9 @@ public class AutoLoopViewPager extends ViewPager {
     // 是否允许循环播放轮播图，默认时false即不允许循环
     private boolean isLoop = false;
 
+    // 当只有一张banner图的时候
+    private boolean noOnly = true;
+
     public AutoLoopViewPager(@NonNull Context context) {
         this(context, null);
     }
@@ -61,7 +64,8 @@ public class AutoLoopViewPager extends ViewPager {
      */
     public void startLoop() {
         isLoop = true;
-        post(mTask);
+        // post(mTask); ←这个方法（太快了）无法往左划动
+        postDelayed(mTask, mDuration);
     }
 
     /**
@@ -96,5 +100,54 @@ public class AutoLoopViewPager extends ViewPager {
         // 不允许播放轮播图
         isLoop = false;
         removeCallbacks(mTask);
+    }
+
+    /**
+     * 分发
+     * 备注：如果希望在原先的触摸逻辑的基础上面，添加一些额外的业务逻辑，并且该业务逻辑不需要影响到先前
+     * 的触摸逻辑，可以考虑将业务逻辑代码写在分发方法中
+     * ACTION_CANCEL:事件类型：当控件在触摸的一系列过程中，突然中断了。
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        int eventAction = event.getAction();
+
+        // 当只有一张banner图的时候就不用自动滚动了
+        if (getAdapter() != null) {
+            noOnly = getAdapter().getCount() == 1 ? false : true;
+        }
+
+        switch (eventAction){
+            case MotionEvent.ACTION_DOWN:
+                //用户按下了banner图 停止发送让banner图无限滚动的消息
+                stopLoop();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                //用户抬起了手指开始发送让banner图无限滚动的消息
+                if (noOnly){
+                    startLoop();
+                }
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                //用户取消了（当控件在触摸的一系列过程中，突然中断了）（手指移动到别的控件上了）
+                if (noOnly) {
+                    startLoop();
+                }
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        /**
+         * 和window对象断开关系
+         * 视图死亡（视图被移除，或者activity死亡之前）时调用
+         * stopLoop();方法中会移除mTask合理的管理内存
+         */
+        stopLoop();
+        super.onDetachedFromWindow();
     }
 }

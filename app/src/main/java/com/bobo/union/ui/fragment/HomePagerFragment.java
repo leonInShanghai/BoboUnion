@@ -134,16 +134,19 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
                 .OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-              int measuredHeight = twinklingRefreshLayout.getMeasuredHeight();
-              if (measuredHeight > 0 ) {
-                  LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mConnectList
-                          .getLayoutParams();
-                  layoutParams.height = measuredHeight;
-                  mConnectList.setLayoutParams(layoutParams);
-                  // 移除监听避免重复调用
-                  twinklingRefreshLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-              }
-              LogUtils.d(HomePagerFragment.this, "measuredHeight --> " + measuredHeight );
+                if (twinklingRefreshLayout != null) {
+                    // TwinklingRefreshLayout.getMeasuredHeight() on a null object reference
+                    int measuredHeight = twinklingRefreshLayout.getMeasuredHeight();
+                    if (measuredHeight > 0 ) {
+                        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mConnectList
+                                .getLayoutParams();
+                        layoutParams.height = measuredHeight;
+                        mConnectList.setLayoutParams(layoutParams);
+                        // 移除监听避免重复调用
+                        twinklingRefreshLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                    LogUtils.d(HomePagerFragment.this, "measuredHeight --> " + measuredHeight );
+                }
             }
         });
 

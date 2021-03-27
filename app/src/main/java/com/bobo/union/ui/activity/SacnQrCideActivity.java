@@ -64,6 +64,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * Created by 公众号：IT波 on 2021/3/21 Copyright © Leon. All rights reserved.
+ * Functions: 扫描界面
+ */
 public class SacnQrCideActivity extends FragmentActivity {
 
     /**

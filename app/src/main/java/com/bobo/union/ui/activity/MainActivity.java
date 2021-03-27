@@ -9,14 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bobo.union.R;
 import com.bobo.union.base.BaseActivity;
 import com.bobo.union.base.BaseFragment;
-import com.bobo.union.ui.Inter.IMainActivity;
+import com.bobo.union.ui.inter.IMainActivity;
 import com.bobo.union.ui.fragment.HomeFragment;
 import com.bobo.union.ui.fragment.OnSellFragment;
 import com.bobo.union.ui.fragment.SearchFragment;
 import com.bobo.union.ui.fragment.SelectedFragment;
 import com.bobo.union.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import butterknife.BindView;
 
