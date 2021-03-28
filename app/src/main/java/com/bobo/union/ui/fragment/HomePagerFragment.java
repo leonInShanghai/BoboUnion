@@ -154,14 +154,17 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
                 .OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int headerHeight = homeHeaderContainer.getMeasuredHeight();
-                LogUtils.d(HomePagerFragment.this, "headerHeight --> " + headerHeight );
-                if (headerHeight > 0) {
-                    homePagerNestedView.setHeaderHeight(headerHeight);
-                    homeHeaderContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // homeHeaderContainer.getMeasuredHeight()' on a null object reference
+                if (homeHeaderContainer != null) {
+                    int headerHeight = homeHeaderContainer.getMeasuredHeight();
+                    LogUtils.d(HomePagerFragment.this, "headerHeight --> " + headerHeight);
+                    if (headerHeight > 0) {
+                        homePagerNestedView.setHeaderHeight(headerHeight);
+                        homeHeaderContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                    LogUtils.d(HomePagerFragment.this, "homeHeaderContainer measuredHeight --> "
+                            + headerHeight);
                 }
-                LogUtils.d(HomePagerFragment.this, "homeHeaderContainer measuredHeight --> "
-                        + headerHeight );
             }
         });
 
