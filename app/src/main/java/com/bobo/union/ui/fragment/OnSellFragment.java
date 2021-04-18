@@ -32,7 +32,7 @@ import butterknife.BindView;
 
 /**
  * Created by Leon on 2020-08-15 Copyright © Leon. All rights reserved.
- * Functions:
+ * Functions: 特惠
  */
 public class OnSellFragment extends BaseFragment implements IOnSellPageCallback, OnSellPageContentAdapter.
         OnSellPageItemClickListener {
@@ -59,6 +59,18 @@ public class OnSellFragment extends BaseFragment implements IOnSellPageCallback,
 
         // 网络请求获取当前页面数据
         mOnSellPagePresenter.getOnSellContent();
+    }
+
+    /**
+     * 当加载失败时用户点击了“网络出错请点击重试”
+     */
+    @Override
+    protected void onRetryClick() {
+        // 重试
+        if (mOnSellPagePresenter != null) {
+            // 重新加载内容
+            mOnSellPagePresenter.reload();
+        }
     }
 
     @Override

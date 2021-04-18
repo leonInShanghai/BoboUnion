@@ -1,9 +1,8 @@
 package com.bobo.union.ui.fragment;
 
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.graphics.Rect;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,9 @@ import com.bobo.union.base.BaseFragment;
 import com.bobo.union.model.doman.SelectedContent;
 import com.bobo.union.model.doman.SelectedPageCategory;
 import com.bobo.union.presenter.ISelectedPagePresenter;
-import com.bobo.union.presenter.ITikcetPresenter;
-import com.bobo.union.ui.activity.TicketActivity;
 import com.bobo.union.ui.adapter.SelectedPageContentAdapter;
 import com.bobo.union.ui.adapter.SelectedPageLeftAdapter;
+import com.bobo.union.ui.custom.AlertContentLoadingView;
 import com.bobo.union.utils.LogUtils;
 import com.bobo.union.utils.PresenterManager;
 import com.bobo.union.utils.SizeUtils;
@@ -51,6 +49,9 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
     @BindView(R.id.fragment_bar_title_tv)
     public TextView barTitleTv;
+
+    // loading弹窗，左边已经加载好右边变化的时候显示给用户看的
+    private AlertDialog mAlterDiaglog;
 
     @Override
     protected View loadRootView(LayoutInflater inflater,ViewGroup container) {
@@ -83,6 +84,10 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
         if (mSelectedPagePresenter != null) {
             // 当View(this)销毁时解绑
             mSelectedPagePresenter.unregisterViewCallback(this);
+        }
+        // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
+        if (mAlterDiaglog.isShowing()) {
+            mAlterDiaglog.dismiss();
         }
     }
 
@@ -160,6 +165,11 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
         mRightAdapter.setData(content);
         // 每当右边的内容数据加载回来 滚动到第0个item
         rightContentList.scrollToPosition(0);
+
+        // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
+        if (mAlterDiaglog.isShowing()) {
+            mAlterDiaglog.dismiss();
+        }
     }
 
     @Override
@@ -185,6 +195,18 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     public void onLeftItemClick(SelectedPageCategory.DataBean item) {
         LogUtils.d(this, "current left selected item --> " + item.toString());
         mSelectedPagePresenter.getContentByCategory(item);
+
+        // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
+        if (mAlterDiaglog == null && getContext() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);
+            builder.setView(new AlertContentLoadingView(getContext()));
+            // 第一次为null的时候创建好不要显示因为loading布局会出来
+            // mAlterDiaglog = builder.show();
+            mAlterDiaglog = builder.create();
+        } else {
+            // 第二次才应该显示
+            mAlterDiaglog.show();
+        }
     }
 
     /**

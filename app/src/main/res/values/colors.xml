@@ -11,4 +11,8 @@
     <color name="colorTmall">#D0021B</color>
     <color name="color_pager__bg">#EFEEEE</color>
     <color name="colorEFEEEE">#EFEEEE</color>
+
+    <!-- 透明的颜色 -->
+    <color name="transparent">#00EFEEEE</color>
+
 </resources>

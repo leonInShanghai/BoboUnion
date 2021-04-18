@@ -17,4 +17,18 @@
         <item name="android:windowBackground">@drawable/layer_launch</item>
     </style>
 
+    <!-- 精选页loadding -->
+    <style name="Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- 设置dialog背景不变暗 true会整个window会有变暗的效果 -->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>
