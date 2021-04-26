@@ -167,7 +167,10 @@ public class MainActivity extends BaseActivity implements IMainActivity {
         mNavigationView.setSelectedItemId(R.id.home);
     }
 
-    // 首页 精选 特惠 搜索 切换业务逻辑 (切换Fragmengt的方法源代码 总感觉这种方式没有view pager 靠谱)
+    // 首页 精选 特惠 搜索 切换业务逻辑 (切换Fragmengt的方法源代码 FIXME:总感觉这种方式没有view pager 靠谱)
+    // FIXME:目前在oppo手机上偶尔会出现Fragmnet重叠的情况 新华为手机未出现Fragmnet重叠
+    // FIXME:Fragmnet重叠 可以参考 https://github.com/leonInShanghai/ShoppingMall/blob/master/app/src/main/java/com
+    //  /bobo/shoppingmall/app/MainActivity.java 进行解决！
     private void switchFragment(BaseFragment targetFragment) {
 
         // 如果上一个fragment跟当前要切换的fragment是同一个，那么不需要切换

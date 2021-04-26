@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:text="@string/text_loading_tips"
             android:layout_marginTop="10dp"

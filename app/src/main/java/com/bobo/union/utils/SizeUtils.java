@@ -13,7 +13,7 @@ import com.bobo.union.base.BaseApplication;
 public class SizeUtils {
 
     /**
-     * px 转 dp 的工具类
+     * dp 转 px 的工具类
      * @param context
      * @param dpValue
      * @return dp单位数
@@ -22,6 +22,15 @@ public class SizeUtils {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int)(dpValue * scale + 0.5f);
     }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
 
     /**
      * 获取当前屏幕高度

@@ -139,9 +139,10 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
      */
     @Override
     public void onCategoriesLoaded(SelectedPageCategory categorys) {
-        setUpState(State.SUCCESS);
+
         // 设置适配器的数据源
         mLeftAdapter.setData(categorys);
+        setUpState(State.SUCCESS);
 
         // 分类内容
         // LogUtils.d(this, "onCategoriesLoaded --> " + categorys.getData().toString());
@@ -198,11 +199,12 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
         // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
         if (mAlterDiaglog == null && getContext() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog);
-            builder.setView(new AlertContentLoadingView(getContext()));
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.Dialog)
+                    .setCancelable(false)
+                    .setView(new AlertContentLoadingView(getContext()));
             // 第一次为null的时候创建好不要显示因为loading布局会出来
-            // mAlterDiaglog = builder.show();
-            mAlterDiaglog = builder.create();
+            mAlterDiaglog = builder.show();
+            // mAlterDiaglog = builder.create();
         } else {
             // 第二次才应该显示
             mAlterDiaglog.show();
