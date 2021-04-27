@@ -11,7 +11,9 @@
 
 * 示例图：
 
-![示例图](https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/dome.gif)
+<div align="center">
+<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/dome.gif">
+</div>
 
 >鸣谢：
 >> * 程序员拉大锯
@@ -23,4 +25,6 @@
 <br/>
 ###下载二维码请使用安卓手机浏览器扫描下载体验
 <br/>
-![下载二维码](https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/downloadQRcode.png)
+<div align="center">
+<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/downloadQRcode.png">
+</div>
