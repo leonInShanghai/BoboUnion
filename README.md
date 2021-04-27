@@ -14,12 +14,13 @@
 ![示例图](https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/dome.gif)
 
 >鸣谢：
->> 程序员拉大锯
- * com.github.tamsiree.RxTool
- * com.lcodecorex:tkrefreshlayout
- * com.squareup.retrofit2
+>> * 程序员拉大锯
+>> * com.github.tamsiree.RxTool
+>> * com.lcodecorex:tkrefreshlayout
+>> * com.squareup.retrofit2
 
 <a href="https://github.com/leonInShanghai/BoboUnion/blob/master/app/release/app-release.apk">下载地址</a>
 <br/>
 ###下载二维码请使用安卓手机浏览器扫描下载体验
+<br/>
 ![下载二维码](https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/downloadQRcode.png)
