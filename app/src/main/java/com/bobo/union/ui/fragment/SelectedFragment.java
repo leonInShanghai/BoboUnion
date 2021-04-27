@@ -176,6 +176,10 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     @Override
     public void onError() {
         setUpState(State.ERROR);
+        // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
+        if (mAlterDiaglog.isShowing()) {
+            mAlterDiaglog.dismiss();
+        }
     }
 
     @Override
@@ -185,7 +189,10 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
 
     @Override
     public void onEmpty() {
-
+        // 2021-4-18当用户点击了左边的分类此时要加载右边的子分类，logding弹窗出现
+        if (mAlterDiaglog.isShowing()) {
+            mAlterDiaglog.dismiss();
+        }
     }
 
     /**
