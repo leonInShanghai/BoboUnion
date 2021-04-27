@@ -15,9 +15,9 @@
 
 >鸣谢：
 >> 程序员拉大锯
->>## com.github.tamsiree.RxTool
->>## com.lcodecorex:tkrefreshlayout
->>## com.squareup.retrofit2
+ * com.github.tamsiree.RxTool
+ * com.lcodecorex:tkrefreshlayout
+ * com.squareup.retrofit2
 
 <a href="https://github.com/leonInShanghai/BoboUnion/blob/master/app/release/app-release.apk">下载地址</a>
 <br/>
