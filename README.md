@@ -12,7 +12,7 @@
 * 示例图：
 
 <div align="center">
-<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/dome.gif">
+<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/dome.gif" alt="示例图"/>
 </div>
 
 >鸣谢：
@@ -26,6 +26,6 @@
 ### 下载二维码请使用安卓手机浏览器扫描下载体验
 <br/>
 <div align="center">
-<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/downloadQRcode.png">
-<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/download _schematic.png.png">
+<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/downloadQRcode.png" alt="下载二维码"/>
+<img src"https://raw.githubusercontent.com/leonInShanghai/BoboUnion/master/otherPicture/download _schematic.png.png" alt="下载操作示例图"/>
 </div>
