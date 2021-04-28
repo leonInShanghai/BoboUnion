@@ -24,6 +24,7 @@
 <a href="https://github.com/leonInShanghai/BoboUnion/blob/master/app/release/app-release.apk" target="_blank">apk下载地址</a>
 
 <br/>
+
 ##### 下载二维码请使用安卓手机浏览器扫描下载体验
 <br/>
 <div align="center">
